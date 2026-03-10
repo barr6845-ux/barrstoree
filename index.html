@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>BARR STORE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        
+        .container {
+            max-width: 420px;
+            width: 100%;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header h2 {
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.95;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .content {
+            padding: 24px 20px;
+        }
+        
+        .nmdid {
+            background: #f0f4ff;
+            padding: 12px 16px;
+            border-radius: 50px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid #d0e0ff;
+        }
+        
+        .nmdid span {
+            font-weight: 700;
+            color: #1e3c72;
+            font-size: 16px;
+        }
+        
+        .catalogue-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .catalogue-title h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .catalogue-title h3:after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .service-card {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+            border: 1px solid #eef2f6;
+        }
+        
+        .service-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .service-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .service-card p {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .qris-section {
+            background: linear-gradient(135deg, #f8fcff 0%, #f0f7ff 100%);
+            border-radius: 24px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #1e3c72;
+        }
+        
+        .qris-title {
+            <img src="qris.png" width="250">
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: #1e3c72;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .qris-sub {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .qris-box {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid #d0e0ff;
+        }
+        
+        .qris-code {
+            width: 200px;
+            height: 200px;
+            background: #f0f0f0;
+            margin: 0 auto 12px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e0e0e0;
+            font-family: monospace;
+            padding: 10px;
+        }
+        
+        .qris-merchant {
+            font-weight: 700;
+            font-size: 20px;
+            color: #1e3c72;
+            text-align: center;
+            margin: 10px 0 5px;
+        }
+        
+        .qris-note {
+            text-align: center;
+            font-size: 13px;
+            color: #2a5298;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+        
+        .qris-info {
+            font-size: 10px;
+            color: #888;
+            text-align: center;
+            margin-top: 8px;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+        
+        .contact-section {
+            background: #1e3c72;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .contact-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .contact-wa {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 50px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .contact-wa .number {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        
+        .order-button {
+            display: block;
+            background: #25D366;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f0f4ff;
+            font-size: 11px;
+            color: #666;
+            border-top: 1px solid #d0e0ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>BARR STORE</h1>
+            <h2>LAYANAN DIGITAL PREMIUM</h2>
+        </div>
+        
+        <div class="content">
+            <div class="nmdid">
+                <span>NMDID: ID1025453021160 | A01</span>
+            </div>
+            
+            <div class="catalogue-title">
+                <h3>CATALOGUE</h3>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card"><div class="service-icon">📱</div><h4>APK PREMIUM</h4><p>Spotify, Canva, Lightroom</p></div>
+                <div class="service-card"><div class="service-icon">🎮</div><h4>TOP UP GAME</h4><p>FF, ML, PUBG, CODM</p></div>
+                <div class="service-card"><div class="service-icon">📞</div><h4>PULSA</h4><p>All Operator + Data</p></div>
+                <div class="service-card"><div class="service-icon">🔑</div><h4>JASA BELI AKUN</h4><p>Game Premium</p></div>
+                <div class="service-card"><div class="service-icon">⚡</div><h4>JOKI MLBB</h4><p>Rank, Winrate, Skin</p></div>
+                <div class="service-card"><div class="service-icon">💳</div><h4>KEBSOS</h4><p>Netflix, Spotify, Disney+</p></div>
+                <div class="service-card"><div class="service-icon">🎨</div><h4>DESAIN GRAFIS</h4><p>Logo, Banner, Katalog</p></div>
+                <div class="service-card"><div class="service-icon">💎</div><h4>VOUCHER</h4><p>Google Play, Steam</p></div>
+            </div>
+            
+            <div class="qris-section">
+                <div class="qris-title">SATU QRIS UNTUK SEMUA</div>
+                <div class="qris-sub">SCAN QRIS</div>
+                <div class="qris-box">
+                    <div class="qris-code">
+    <img src="qris.jpeg" alt="QRIS BARR STORE" style="width:100%; height:100%; object-fit:contain; border-radius:10px;">
+</div>
+                    <div class="qris-merchant">BARR STORE</div>
+                    <div class="qris-note">PEMBAYARAN MUDAH & CEPAT</div>
+                    <div class="qris-info">NMDID: ID1025453021160 | A01<br>www.aspi-qris.id</div>
+                </div>
+            </div>
+            
+            <div class="contact-section">
+                <div class="contact-title">HUBUNGI ADMIN</div>
+                <div class="contact-wa"><div class="number">0857-7123-8569</div></div>
+            </div>
+            
+            <a href="https://wa.me/6285771238569" class="order-button">ORDER VIA WHATSAPP</a>
+        </div>
+        
+        <div class="footer">BARR STORE - LAYANAN DIGITAL TERPERCAYA</div>
+    </div>
+</body>
+</html>
