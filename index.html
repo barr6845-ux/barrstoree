@@ -107,9 +107,10 @@
     .hero h1 {
       font-size: 3.2rem;
       font-weight: 700;
-      background: linear-gradient(145deg, #ffffff, #c0b9e0);
+      background: var(--accent-grad);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
       line-height: 1.1;
       margin-bottom: 10px;
       letter-spacing: -0.03em;
@@ -236,7 +237,7 @@
       transform: scale(0.98);
     }
 
-    /* QRIS SECTION - diperbarui sesuai gambar */
+    /* QRIS SECTION - dengan gambar asli */
     .qris-box {
       background: linear-gradient(145deg, #1b1f28, #13161e);
       border-radius: 36px;
@@ -261,29 +262,14 @@
       letter-spacing: 0.5px;
     }
 
-    .qris-placeholder {
-      background: #0f1219;
-      width: 200px;
-      height: 200px;
-      margin: 20px auto;
+    /* gambar QRIS dengan style dari user */
+    .qris-box<img src="qrisbarrstore.jpeg" style="width:100%; max-width:200px; height:auto;">{
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
       border-radius: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px dashed #5f5f8a;
-      color: #6b7280;
-      font-weight: 500;
-      background-image: radial-gradient(circle at 30px 30px, #2a2e3a 2px, transparent 2px), 
-                        radial-gradient(circle at 70px 90px, #2a2e3a 2px, transparent 2px);
-      background-size: 50px 50px;
-    }
-
-    .qris-placeholder span {
-      background: #1e222b;
-      padding: 8px 20px;
-      border-radius: 60px;
-      color: #b9c2d4;
-      border: 1px solid #40465a;
     }
 
     .qris-id {
@@ -301,7 +287,7 @@
       margin: 4px 0;
     }
 
-    /* INFO PEMESANAN - tambahan nomor telepon */
+    /* INFO PEMESANAN - dengan nomor telepon */
     .info-pesan {
       background: #151a24;
       border-radius: 32px;
@@ -368,7 +354,7 @@
 </head>
 <body>
   <main class="container">
-    <!-- HERO SECTION (tanpa tombol hubungi admin) -->
+    <!-- HERO SECTION dengan teks BARR STOREE berwarna gradien ungu-hijau -->
     <section class="hero">
       <h1>BARR STOREE</h1>
       <div class="tagline">Layanan Digital Premium</div>
@@ -381,19 +367,42 @@
       <div class="catalog-grid" id="catalogGrid"></div>
     </section>
 
-    <!-- PEMBAYARAN QRIS (sesuai gambar) -->
+    <!-- PEMBAYARAN QRIS (dengan gambar asli dan fallback) -->
     <section>
       <h2>📲 PEMBAYARAN QRIS</h2>
       <div class="qris-box">
         <h3>BARR STORE</h3>
         <div class="subtitle">PEMBAYARAN MUDAH & CEPAT</div>
-        <!-- Placeholder QR code - ganti dengan gambar QRIS asli jika sudah punya -->
-        <img src="qrisbarrstore.jpeg" style="width:100%; max-width:200px; height:auto;">
+        
+        <!-- GAMBAR QRIS ASLI - dengan kode yang diberikan user -->
+        <img src="qrisbarrstore.jpeg" 
+             alt="QRIS BARR STORE" 
+             style="width:100%; max-width:200px; height:auto; display:block; margin:0 auto; border-radius:32px;"
+             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%23222\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'16\' fill=\'%23fff\' text-anchor=\'middle\' dy=\'.3em\'%3EQRIS%3C/text%3E%3C/svg%3E';">
+
         <div class="qris-id">
           <p>NMDID: ID1025453021160 | A01</p>
           <p>www.aspi-qris.id</p>
         </div>
         <p style="color: #b1c3e0; margin-top: 20px;">Scan QRIS untuk melakukan pembayaran.</p>
+      </div>
+    </section>
+
+    <!-- TAMBAHAN: QRIS GRUP WHATSAPP -->
+    <section>
+      <h2>👥 GRUP WHATSAPP</h2>
+      <div class="qris-box">
+        <h3>BARR STORE GROUP</h3>
+        <div class="subtitle">BERGABUNG DENGAN KOMUNITAS</div>
+        
+        <!-- Placeholder untuk QR Grup WA (bisa diganti dengan gambar asli nanti) -->
+        <<img src="qriswa.png" style="width:100%; max-width:200px; height:auto;">
+
+        <div style="margin-top:15px; font-size:0.9rem; color:#b1c3e0; background:rgba(255,255,255,0.02); padding:12px; border-radius:40px; border:1px solid #2f3540; display:inline-block;">
+          <p>QR Grup • BARR STORE</p>
+          <p>Komunitas digital</p>
+        </div>
+        <p style="color: #b1c3e0; margin-top: 20px;">Scan QRIS ini untuk bergabung di grup WhatsApp BARR STORE. Dapatkan info terbaru, promo, dan diskusi seru!</p>
       </div>
     </section>
 
@@ -461,8 +470,9 @@
       const WA_NUMBER = "6285771238569";
       const grid = document.getElementById('catalogGrid');
 
-      function createOrderLink(serviceName) {
-        const text = `Halo admin saya mau order ${serviceName}`;
+      // Fungsi order dengan format: Halo admin saya mau order [Kategori],[Nama Layanan]
+      function createOrderLink(categoryName, serviceName) {
+        const text = `Halo admin saya mau order ${categoryName},${serviceName}`;
         return `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(text)}`;
       }
 
@@ -483,8 +493,9 @@
           const li = document.createElement('li');
           li.innerHTML = `<span>${service}</span>`;
 
+          // Tombol order dengan kategori dan layanan
           const orderBtn = document.createElement('a');
-          orderBtn.href = createOrderLink(service);
+          orderBtn.href = createOrderLink(cat.name, service);
           orderBtn.target = '_blank';
           orderBtn.rel = 'noopener';
           orderBtn.className = 'order-btn';
@@ -523,7 +534,7 @@
     })();
   </script>
 
-  <!-- penyesuaian gaya tambahan -->
+  <!-- sedikit penyesuaian ekstra -->
   <style>
     .card.active .dropdown {
       max-height: 600px;
@@ -548,9 +559,6 @@
         width: 100%;
         text-align: center;
       }
-    }
-    .qris-placeholder {
-      box-shadow: inset 0 0 30px #00000055, 0 20px 25px -15px black;
     }
   </style>
 </body>
