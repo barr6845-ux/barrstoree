@@ -265,11 +265,11 @@
     /* Gaya gambar QR: kotak siku, ukuran besar, bayangan */
     .qris-box img {
       width: 100%;
-      max-width: 300px;      /* diperbesar jadi 300px */
+      max-width: 300px;
       height: auto;
       display: block;
       margin: 0 auto;
-      border-radius: 0;       /* kotak sempurna */
+      border-radius: 0;
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     }
 
@@ -428,65 +428,81 @@
 
   <script>
     (function() {
-      // ---------- DATA KATEGORI (8 card) ----------
+      // ---------- DATA KATEGORI (10 card) dengan item huruf besar semua ----------
       const categories = [
         {
           name: "APK PREMIUM",
           items: [
-            "Apple Music", "Blackbox AI", "Bstation", "CamScanner", "Canva", "CapCut", "CatchPlay", "ChatGPT",
-            "DazzCam", "Disney+", "DramaBox", "Gemini", "GetContact", "GTC", "HBO Max", "Ibis Paint",
-            "iQIYI", "Lightroom", "Loklok", "Meitu", "Netflix", "Padlet", "Perplexity", "PicsArt",
-            "Pollar", "Prime Video", "Remini", "Scribd", "ShortMax", "Spotify", "Telegram Premium",
-            "Vidio", "Viu", "Wattpad", "WeTV", "Youku", "YouTube Premium", "Zoom"
+            "APPLE MUSIC", "BLACKBOX AI", "BSTATION", "CAMSCANNER", "CANVA", "CAPCUT", "CATCHPLAY", "CHATGPT",
+            "DAZZCAM", "DISNEY+", "DRAMABOX", "GEMINI", "GETCONTACT", "GTC", "HBO MAX", "IBIS PAINT",
+            "IQIYI", "LIGHTROOM", "LOKLOK", "MEITU", "NETFLIX", "PADLET", "PERPLEXITY", "PICSART",
+            "POLLAR", "PRIME VIDEO", "REMINI", "SCRIBD", "SHORTMAX", "SPOTIFY", "TELEGRAM PREMIUM",
+            "VIDIO", "VIU", "WATTPAD", "WETV", "YOUKU", "YOUTUBE PREMIUM", "ZOOM"
           ]
         },
         {
           name: "JUAL BELI AKUN",
-          items: ["All Game"]
+          items: ["ALL GAME"]
         },
         {
           name: "DESAIN GRAFIS",
-          items: ["Logo", "Banner", "Slogan", "Poster"]
+          items: ["LOGO", "BANNER", "SLOGAN", "POSTER"]
         },
         {
           name: "TOP UP GAME",
-          items: ["Roblox", "MLBB", "PUBG", "FC Mobile"]
+          items: ["ROBLOX", "MLBB", "PUBG", "FC MOBILE"]
         },
         {
           name: "PULSA / VOUCHER",
-          items: ["Telkomsel", "Indosat", "Smartfren", "XL", "Axis", "Tri"]
+          items: ["TELKOMSEL", "INDOSAT", "SMARTFREN", "XL", "AXIS", "TRI"]
         },
         {
-          name: "NOKOS",
-          items: ["Instagram", "TikTok"]
+          name: "NOKOS TELEGRAM",
+          items: [
+            "INDONESIA", "MALAYSIA", "ENGLAND", "RUSSIA", "COLOMBIA", "BRAZIL",
+            "GERMAN", "PHILIPPINES", "AUSTRALIA", "FRANCE", "TURKEY", "USA"
+          ]
+        },
+        {
+          name: "NOKOS NOGAR",
+          items: [
+            "WHATSAPP", "TIKTOK", "DANA", "LAZADA", "SHOPE", "TOKO PEDIA",
+            "OVO", "GOJEK", "GRAB", "LINE"
+          ]
         },
         {
           name: "JASA BUG",
-          items: ["Virtex", "Banned"]
+          items: ["VIRTEX", "LACAK ALAMAT", "SPAM", "CAL", "BANNED"]
         },
         {
           name: "JOKI GAME",
-          items: ["MLBB", "FC Mobile", "PUBG"]
+          items: ["MLBB"]   // ← hanya MLBB saja
+        },
+        {
+          name: "OPEN FREELANCE",
+          items: ["MODAL CUMAN 7K"]
         }
       ];
 
       const WA_NUMBER = "6285771238569";
       const grid = document.getElementById('catalogGrid');
 
-      // Fungsi untuk mendapatkan suffix kategori
+      // Fungsi untuk mendapatkan suffix kategori (untuk pesan order)
       function getCategorySuffix(catName) {
         if (catName === "APK PREMIUM") return "Premium";
         if (catName === "JUAL BELI AKUN") return "Jual Beli Akun";
         if (catName === "DESAIN GRAFIS") return "Desain Grafis";
         if (catName === "TOP UP GAME") return "Top Up Game";
         if (catName === "PULSA / VOUCHER") return "Pulsa Voucher";
-        if (catName === "NOKOS") return "Nokos";
+        if (catName === "NOKOS TELEGRAM") return "Nokos Telegram";
+        if (catName === "NOKOS NOGAR") return "Nokos Nogar";
         if (catName === "JASA BUG") return "Jasa Bug";
         if (catName === "JOKI GAME") return "Joki Game";
+        if (catName === "OPEN FREELANCE") return "Open Freelance";
         return catName;
       }
 
-      // Fungsi order dengan format baru
+      // Fungsi order dengan format: Halo admin, saya mau order [item] [suffix]. Apakah masih tersedia?
       function createOrderLink(categoryName, serviceName) {
         const suffix = getCategorySuffix(categoryName);
         const text = `Halo admin, saya mau order ${serviceName} ${suffix}. Apakah masih tersedia?`;
