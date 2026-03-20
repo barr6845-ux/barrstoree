@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Eid Al-Fitr | Digital Storytelling</title>
+    <!-- Font Elegant & Modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* mencegah highlight berlebih, tetap elegan */
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background: #0a0c14;
+        }
+
+        /* Main container fullscreen 9:16 friendly */
+        .story-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 10%, #0b1a2e, #04070f);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        /* Background decorative elements: bintang & bulan elegan */
+        .stars, .moon-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #f9f3d9;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite alternate;
+            box-shadow: 0 0 6px rgba(255, 245, 190, 0.8);
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(1);}
+            100% { opacity: 1; transform: scale(1.2);}
+        }
+
+        .moon {
+            position: absolute;
+            top: 12%;
+            right: 8%;
+            width: 85px;
+            height: 85px;
+            background: radial-gradient(circle at 30% 30%, #f9e7b3, #e9c468);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 215, 120, 0.5);
+            opacity: 0.8;
+            filter: blur(0.6px);
+        }
+        
+        .moon::after {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+            background: #fef7cf;
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(3px);
+        }
+
+        /* ORNAMENT GOLD ISLAMI */
+        .gold-ornament {
+            position: absolute;
+            bottom: 5%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: rgba(212, 175, 55, 0.4);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* LAYER UTAMA */
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s ease;
+            will-change: transform, opacity;
+            z-index: 10;
+        }
+
+        /* LANDING SCREEN */
+        .landing-screen {
+            opacity: 1;
+            transform: scale(1);
+            background: transparent;
+        }
+
+        .hidden-screen {
+            opacity: 0;
+            transform: scale(0.96);
+            pointer-events: none;
+        }
+
+        /* Tombol utama - modern dengan glow */
+        .btn-eid {
+            background: linear-gradient(135deg, rgba(30, 35, 55, 0.9), rgba(20, 24, 42, 0.95));
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.7);
+            padding: 16px 42px;
+            border-radius: 60px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: #e9d6a3;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3), 0 8px 20px rgba(0,0,0,0.3);
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            z-index: 20;
+            position: relative;
+            animation: gentleGlow 2.2s infinite alternate;
+        }
+
+        @keyframes gentleGlow {
+            0% {
+                box-shadow: 0 0 8px rgba(212, 175, 55, 0.4), 0 4px 12px rgba(0,0,0,0.3);
+                border-color: rgba(212, 175, 55, 0.6);
+            }
+            100% {
+                box-shadow: 0 0 26px rgba(212, 175, 55, 0.8), 0 8px 24px rgba(0,0,0,0.4);
+                border-color: rgba(212, 175, 55, 1);
+            }
+        }
+
+        .btn-eid:active {
+            transform: scale(0.96);
+            transition: 0.05s;
+        }
+
+        /* Ucapan screen */
+        .message-screen {
+            background: radial-gradient(circle at center, rgba(10, 20, 35, 0.75), rgba(3, 6, 15, 0.92));
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .message-card {
+            max-width: 85%;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem 1.5rem;
+            border-radius: 48px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(12px);
+        }
+
+        .greeting-line {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 2rem;
+            color: #f7e5c2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.7s ease, transform 0.5s ease;
+        }
+
+        .greeting-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .arabic-style {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .additional-message {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #cfcfdf;
+            margin-top: 2rem;
+            font-weight: 300;
+            border-top: 1px dashed rgba(212, 175, 55, 0.5);
+            padding-top: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.9s ease 0.6s;
+        }
+
+        .additional-message.visible {
+            opacity: 1;
+        }
+
+        /* partikel bintang dinamis */
+        .particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* kontrol audio minimalis */
+        .audio-control {
+            position: fixed;
+            bottom: 18px;
+            right: 18px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            border-radius: 40px;
+            padding: 8px 12px;
+            z-index: 99;
+            border: 0.5px solid rgba(212,175,55,0.6);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #eedd99;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: monospace;
+        }
+
+        .audio-control span {
+            font-size: 0.7rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* responsif mobile */
+        @media (max-width: 600px) {
+            .btn-eid {
+                padding: 14px 34px;
+                font-size: 1.2rem;
+            }
+            .greeting-line {
+                font-size: 1.7rem;
+            }
+            .arabic-style {
+                font-size: 1.9rem;
+            }
+            .message-card {
+                padding: 1.5rem 1rem;
+                width: 90%;
+            }
+            .additional-message {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* efek zoom transisi tambahan */
+        .zoom-transition {
+            animation: subtleZoomOut 0.5s ease-out;
+        }
+
+        @keyframes subtleZoomOut {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.02); opacity: 0; }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(212,175,55,0.3);
+            z-index: 20;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div class="story-container" id="storyContainer">
+    <!-- Canvas partikel ringan (bintang dinamis) -->
+    <canvas id="starCanvas" class="particle-canvas"></canvas>
+    
+    <!-- decorative bulan & ornamen -->
+    <div class="moon"></div>
+    <div class="gold-ornament">۞ فَتَبَارَكَ اللَّهُ ۞</div>
+    
+    <!-- LANDING SCREEN -->
+    <div id="landingScreen" class="screen landing-screen">
+        <button id="mainCta" class="btn-eid">✨ Klik di sini ✨</button>
+        <div style="margin-top: 30px; font-size: 12px; color: rgba(212,175,55,0.5); letter-spacing: 2px; font-family: monospace;">✦ swipe to discover ✦</div>
+    </div>
+    
+    <!-- MESSAGE SCREEN (Awalnya tersembunyi) -->
+    <div id="messageScreen" class="screen message-screen hidden-screen">
+        <div class="message-card">
+            <div id="line1" class="greeting-line arabic-style">مِنَ الْعَائِدِينَ وَالْفَائِزِينَ</div>
+            <div id="line2" class="greeting-line">Minal aidin wal faizin</div>
+            <div id="line3" class="greeting-line">Mohon maaf lahir dan batin</div>
+            <div id="additionalMsg" class="additional-message">
+                🌙 Semoga cahaya suci Idul Fitri menyinari hatimu,<br>
+                melapangkan segala resah, dan menghubungkan kita dalam maaf yang tulus.<br>
+                Jadikan setiap hela napas sebagai lembaran baru yang penuh berkah. ✨
+            </div>
+        </div>
+        <div style="margin-top: 35px; font-size: 13px; color: #d4af37aa; font-weight: 300;">✧ ketuk dimana saja untuk mengulang ✧</div>
+    </div>
+    
+    <!-- Audio Control Minimalis -->
+    <div id="audioControl" class="audio-control">
+        <span>🎵</span> <span id="audioStatus">Putar Suara</span>
+    </div>
+    <footer>✦ selamat hari raya ✦</footer>
+</div>
+
+<script>
+    (function() {
+        // ---------- ELEMENTS ----------
+        const landingDiv = document.getElementById('landingScreen');
+        const messageDiv = document.getElementById('messageScreen');
+        const ctaButton = document.getElementById('mainCta');
+        const storyContainer = document.getElementById('storyContainer');
+        
+        // Teks lines
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+        const additionalMsg = document.getElementById('additionalMsg');
+        
+        // Audio Opsional: Buat background sound lembut (suara alam + nada halal)
+        let audio = null;
+        let isAudioPlaying = false;
+        const audioControlDiv = document.getElementById('audioControl');
+        const audioStatusSpan = document.getElementById('audioStatus');
+        
+        // Inisialisasi audio menggunakan Web Audio API sederhana? Agar tidak diblokir autoplay, kita buat dengan user gesture.
+        // Karena tombol utama ditekan akan memulai interaksi, kita bisa memutar audio di event pertama.
+        // Kami siapkan audio ambient: suara lembut rebana / senandung?
+        // Agar tetap ringan dan tanpa file eksternal, gunakan Oscillator? Namun tidak disarankan.
+        // Lebih baik menggunakan embedded base64 suara alam yang sangat kecil? bisa dengan Web Audio API untuk nada halus.
+        // Alternatif: Buat Audio context dan buat nada ambient sederhana (sinewave lembut) agar tidak terlalu mengganggu.
+        // Karena autoplay policy, kita inisialisasi pada klik pertama (tombol utama atau audio control).
+        // Saya membuat fitur audio opsional dengan sumber suara sederhana dari generator tone lembut (pad)
+        let audioCtx = null;
+        let oscillator = null;
+        let gainNode = null;
+        let isAudioInit = false;
+        
+        function initSoftAmbient() {
+            if (audioCtx) return;
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                gainNode = audioCtx.createGain();
+                gainNode.gain.value = 0.18; // volume sangat halus
+                gainNode.connect(audioCtx.destination);
+                // Buat background drone lembut (nada hangat)
+                oscillator = audioCtx.createOscillator();
+                oscillator.type = 'sine';
+                oscillator.frequency.value = 174.61; // F3 (menenangkan)
+                oscillator.connect(gainNode);
+                // tambahkan harmonik lembut? sederhana saja
+                oscillator.start();
+                // loop tidak ada masalah karena akan terus menerus hingga dihentikan
+                // agar tidak terlalu repetitif, nanti akan fade out jika diperlukan
+                isAudioPlaying = true;
+                audioStatusSpan.innerText = "Musik halus";
+            } catch(e) {
+                console.log("Web Audio tidak didukung, tidak ada backsound");
+                audioStatusSpan.innerText = "Audio tidak tersedia";
+            }
+        }
+        
+        function stopAmbient() {
+            if (oscillator && audioCtx) {
+                try {
+                    oscillator.stop();
+                    oscillator.disconnect();
+                } catch(e) {}
+                oscillator = null;
+                isAudioPlaying = false;
+                audioStatusSpan.innerText = "Putar Suara";
+                if (audioCtx) {
+                    // Buat ulang nanti jika diperlukan
+                }
+            } else {
+                if (audioCtx && gainNode) {
+                    gainNode.gain.value = 0;
+                }
+                isAudioPlaying = false;
+                audioStatusSpan.innerText = "Putar Suara";
+            }
+        }
+        
+        function startAmbient() {
+            if (!audioCtx) {
+                initSoftAmbient();
+                return;
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().then(() => {
+                    if (!oscillator) {
+                        // restart oscillator
+                        oscillator = audioCtx.createOscillator();
+                        oscillator.type = 'sine';
+                        oscillator.frequency.value = 174.61;
+                        gainNode = audioCtx.createGain();
+                        gainNode.gain.value = 0.18;
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioCtx.destination);
+                        oscillator.start();
+                        isAudioPlaying = true;
+                        audioStatusSpan.innerText = "Musik halus";
+                    } else {
+                        isAudioPlaying = true;
+                        if (gainNode) gainNode.gain.value = 0.18;
+                        audioStatusSpan.innerText = "Musik halus";
+                    }
+                }).catch(e=>console.log(e));
+            } else {
+                if (!oscillator && audioCtx) {
+                    oscillator = audioCtx.createOscillator();
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 174.61;
+                    gainNode = audioCtx.createGain();
+                    gainNode.gain.value = 0.18;
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    oscillator.start();
+                } else if(gainNode) {
+                    gainNode.gain.value = 0.18;
+                }
+                isAudioPlaying = true;
+                audioStatusSpan.innerText = "Musik halus";
+            }
+        }
+        
+        function toggleAudio() {
+            if (!audioCtx) {
+                initSoftAmbient();
+                startAmbient();
+                return;
+            }
+            if (isAudioPlaying) {
+                if (gainNode) gainNode.gain.value = 0;
+                isAudioPlaying = false;
+                audioStatusSpan.innerText = "Putar Suara";
+            } else {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                if (gainNode) gainNode.gain.value = 0.18;
+                if (!oscillator && audioCtx) {
+                    oscillator = audioCtx.createOscillator();
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 174.61;
+                    oscillator.connect(gainNode);
+                    oscillator.start();
+                }
+                isAudioPlaying = true;
+                audioStatusSpan.innerText = "Musik halus";
+            }
+        }
+        
+        audioControlDiv.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleAudio();
+        });
+        
+        // ---------- PARTIKEL BINTANG CANVAS ----------
+        const canvas = document.getElementById('starCanvas');
+        let ctx = canvas.getContext('2d');
+        let starsArray = [];
+        let width, height;
+        
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            initStars(120); // jumlah bintang lembut
+        }
+        
+        function initStars(count) {
+            starsArray = [];
+            for(let i=0; i<count; i++) {
+                starsArray.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 2.2 + 0.8,
+                    alpha: Math.random() * 0.6 + 0.2,
+                    speed: 0.005 + Math.random() * 0.015,
+                    angle: Math.random() * Math.PI * 2
+                });
+            }
+        }
+        
+        function drawStars() {
+            if(!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+            for(let s of starsArray) {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI*2);
+                ctx.fillStyle = `rgba(245, 225, 160, ${s.alpha + Math.sin(Date.now() * s.speed) * 0.2})`;
+                ctx.fill();
+                // sedikit glow effect
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = "#e9c468";
+            }
+            ctx.shadowBlur = 0;
+            requestAnimationFrame(drawStars);
+        }
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initStars(130);
+        });
+        resizeCanvas();
+        drawStars();
+        
+        // ---------- TRANSISI UTAMA (TikTok style) ----------
+        let isTransitioning = false;
+        
+        function resetMessageAnimation() {
+            // reset semua line ke hidden
+            line1.classList.remove('visible');
+            line2.classList.remove('visible');
+            line3.classList.remove('visible');
+            additionalMsg.classList.remove('visible');
+            // reset inline style untuk memastikan fade
+            [line1, line2, line3, additionalMsg].forEach(el => {
+                if(el) {
+                    el.style.transition = '';
+                    el.classList.remove('visible');
+                }
+            });
+        }
+        
+  
