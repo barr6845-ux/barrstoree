@@ -3,292 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>BARR STOREE • Layanan Digital Premium</title>
-  <!-- Font Awesome 6 (free) -->
+  <title>BARR STORE • Layanan Digital Premium</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Font: Inter modern sans -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
-    /* RESET & VARIABLES */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0a0c0f;
-      color: #e8edf2;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* DARK MODERN THEME */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #0a0c0f; color: #e8edf2; line-height: 1.5; scroll-behavior: smooth; }
     :root {
-      --bg-dark: #0a0c0f;
-      --surface-dark: #15181e;
-      --card-bg: #1e2229;
-      --border-dim: #2c313a;
+      --bg-dark: #0a0c0f; --card-bg: #1e2229; --border-dim: #2c313a;
       --accent-grad: linear-gradient(135deg, #7f5af0, #2cb67d);
-      --accent-light: #a78bfa;
-      --text-primary: #f1f5f9;
-      --text-secondary: #a0a8b7;
+      --accent-light: #a78bfa; --text-secondary: #a0a8b7;
       --shadow-soft: 0 12px 30px -8px rgba(0, 0, 0, 0.6), 0 4px 10px rgba(0, 0, 0, 0.3);
-      --radius-card: 24px;
-      --radius-btn: 60px;
+      --radius-card: 24px; --radius-btn: 60px;
     }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    h2 { font-size: 1.8rem; margin-bottom: 1.5rem; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; background: var(--accent-grad); color: white; font-weight: 600; border-radius: var(--radius-btn); text-decoration: none; transition: 0.2s; box-shadow: 0 8px 20px -8px rgba(127,90,240,0.4); border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px -8px #7f5af0; }
+    .btn-large { width: 100%; padding: 18px 20px; font-size: 1.2rem; }
+    .hero { padding: 40px 0 30px; }
+    .hero h1 { font-size: 3.2rem; font-weight: 700; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .hero .tagline { font-size: 1.1rem; color: var(--accent-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+    .hero p { color: var(--text-secondary); max-width: 500px; margin-bottom: 30px; }
+    .catalog-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin: 30px 0 40px; }
+    @media (min-width: 600px) { .catalog-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .catalog-grid { grid-template-columns: repeat(3, 1fr); } .hero h1 { font-size: 4.5rem; } }
+    .card { background: var(--card-bg); border-radius: var(--radius-card); padding: 20px 18px; border: 1px solid var(--border-dim); box-shadow: var(--shadow-soft); transition: 0.2s; cursor: pointer; }
+    .card:hover { transform: translateY(-6px); border-color: #7f5af0; box-shadow: 0 25px 35px -12px #000000dd, 0 0 0 1px #7f5af0 inset; }
+    .card-header h3 { font-size: 1.4rem; font-weight: 600; color: white; pointer-events: none; }
+    .dropdown { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.3s; margin-top: 0; background: rgba(10,12,15,0.7); backdrop-filter: blur(8px); border-radius: 20px; border: 1px solid transparent; }
+    .card.active .dropdown { max-height: 700px; opacity: 1; margin-top: 20px; border-color: #3f3f5e; padding: 12px 8px; overflow-y: auto; }
+    .dropdown ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .dropdown li { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 10px 16px; border-radius: 40px; border: 1px solid #2f3540; font-size: 0.9rem; flex-wrap: wrap; gap: 8px; }
+    .dropdown .subcategory-title { font-weight: 600; color: var(--accent-light); margin: 8px 0 4px 0; padding-left: 8px; border-left: 3px solid #7f5af0; display: block; width: 100%; background: transparent; border-radius: 0; border: none; font-size: 1rem; }
+    @media (max-width: 480px) { .dropdown li { flex-direction: column; text-align: center; } .order-btn { width: 100%; } }
+    .order-btn { background: var(--accent-grad); border: none; color: white; padding: 6px 16px; border-radius: 40px; font-weight: 600; font-size: 0.8rem; text-decoration: none; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); white-space: nowrap; }
+    .order-btn:hover { transform: scale(1.05); background: #8f6ef0; }
 
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* TYPOGRAPHY */
-    h1, h2, h3 {
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      background: var(--accent-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: inline-block;
-    }
-
-    /* BUTTONS */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 32px;
-      background: var(--accent-grad);
-      color: white;
-      font-weight: 600;
-      border: none;
-      border-radius: var(--radius-btn);
-      text-decoration: none;
-      font-size: 1rem;
-      transition: all 0.2s ease;
-      box-shadow: 0 8px 20px -8px rgba(127, 90, 240, 0.4);
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 25px -8px #7f5af0;
-    }
-
-    .btn:active {
-      transform: translateY(0);
-      box-shadow: 0 8px 15px -5px #7f5af0;
-    }
-
-    .btn-large {
-      width: 100%;
-      padding: 18px 20px;
-      font-size: 1.2rem;
-    }
-
-    /* HEADER / HERO */
-    .hero {
-      padding: 40px 0 30px;
-      text-align: left;
-    }
-
-    .hero h1 {
-      font-size: 3.2rem;
-      font-weight: 700;
-      background: var(--accent-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.1;
-      margin-bottom: 10px;
-      letter-spacing: -0.03em;
-    }
-
-    .hero .tagline {
-      font-size: 1.1rem;
-      color: var(--accent-light);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      max-width: 500px;
-      margin-bottom: 30px;
-    }
-
-    /* GRID LAYOUT */
-    .catalog-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      margin: 30px 0 40px;
-    }
-
-    /* CARD MODERN */
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-card);
-      padding: 20px 18px;
-      border: 1px solid var(--border-dim);
-      box-shadow: var(--shadow-soft);
-      transition: transform 0.2s, box-shadow 0.3s, border-color 0.2s;
-      cursor: pointer;
-      backdrop-filter: blur(2px);
-      position: relative;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: #7f5af0;
-      box-shadow: 0 25px 35px -12px #000000dd, 0 0 0 1px #7f5af0 inset;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      pointer-events: none;
-    }
-
-    .card-header h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: white;
-    }
-
-    /* DROPDOWN (smooth slide) */
-    .dropdown {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.45s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease, margin 0.3s;
-      margin-top: 0;
-      background: rgba(10, 12, 15, 0.7);
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      border: 1px solid transparent;
-    }
-
-    .card.active .dropdown {
-      max-height: 500px;
-      opacity: 1;
-      margin-top: 20px;
-      border-color: #3f3f5e;
-      padding: 12px 8px;
-    }
-
-    .dropdown ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .dropdown li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 10px 16px;
-      border-radius: 40px;
-      border: 1px solid #2f3540;
-      font-size: 0.95rem;
-      color: var(--text-primary);
-    }
-
-    .order-btn {
-      background: var(--accent-grad);
-      border: none;
-      color: white;
-      padding: 6px 16px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      text-decoration: none;
-      transition: 0.15s;
-      display: inline-block;
-      border: 1px solid rgba(255,255,255,0.1);
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-
-    .order-btn:hover {
-      transform: scale(1.05);
-      background: #8f6ef0;
-      box-shadow: 0 8px 12px #2f1b5a;
-    }
-
-    .order-btn:active {
-      transform: scale(0.98);
-    }
-
-    /* QRIS SECTION - dengan gambar kotak (border-radius:0) dan ukuran besar */
-    .qris-box {
-      background: linear-gradient(145deg, #1b1f28, #13161e);
-      border-radius: 36px;
-      padding: 30px 20px;
-      margin: 40px 0 30px;
-      border: 1px solid #3b3f55;
-      box-shadow: var(--shadow-soft);
-      text-align: center;
-    }
-
-    .qris-box h3 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 5px;
-    }
-
-    .qris-box .subtitle {
-      color: var(--accent-light);
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
-    }
-
-    /* Gaya gambar QR: kotak siku, ukuran besar, bayangan */
-    .qris-box img {
-      width: 100%;
-      max-width: 300px;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      border-radius: 0;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    }
-
-    .qris-id {
-      margin-top: 15px;
-      font-size: 0.9rem;
-      color: #b1c3e0;
-      background: rgba(255,255,255,0.02);
-      padding: 12px;
-      border-radius: 40px;
-      border: 1px solid #2f3540;
-      display: inline-block;
-    }
-
-    .qris-id p {
-      margin: 4px 0;
-    }
-
-    /* INFO PEMESANAN */
     .info-pesan {
       background: #151a24;
       border-radius: 32px;
@@ -296,7 +47,6 @@
       text-align: center;
       margin: 40px 0 20px;
     }
-
     .contact-number {
       font-size: 1.8rem;
       font-weight: 700;
@@ -306,293 +56,441 @@
       margin: 10px 0 5px;
       letter-spacing: 1px;
     }
-
     .contact-label {
       color: var(--text-secondary);
       font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 2px;
     }
-
     .order-caption {
       color: #6f7a8c;
       font-size: 0.9rem;
       margin-top: 15px;
       font-style: italic;
     }
+    .info-notes {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 15px 0 5px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .info-notes span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 30px 0 20px;
-      color: #5f687a;
+    /* MODAL POPUP */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #1a1e2a;
+      border-radius: 28px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 28px;
+      border: 1px solid #7f5af0;
+      position: relative;
+    }
+    .modal-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #a78bfa;
+    }
+    .modal-content p, .modal-content li {
+      color: #cbd5e6;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .modal-content ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #a78bfa;
+      transition: 0.2s;
+    }
+    .close-modal:hover {
+      color: #fff;
+    }
+
+    /* FOOTER 4 KOLOM SEJAJAR */
+    .footer-modern {
+      background: #0f111a;
       border-top: 1px solid #262b34;
-      font-size: 0.95rem;
+      padding: 50px 0 30px;
+      margin-top: 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #cbd5e6;
+      margin-bottom: 18px;
       letter-spacing: 1px;
     }
-
-    /* Desktop adjustment */
-    @media (min-width: 600px) {
-      .catalog-grid {
+    .footer-col a {
+      display: block;
+      color: #8e98b5;
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .footer-col a:hover {
+      color: #a78bfa;
+      transform: translateX(4px);
+    }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 25px;
+      border-top: 1px solid #262b34;
+      font-size: 0.8rem;
+      color: #6c728f;
+    }
+    @media (max-width: 800px) {
+      .footer-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
       }
     }
-
-    @media (min-width: 900px) {
-      .catalog-grid {
-        grid-template-columns: repeat(3, 1fr);
+    @media (max-width: 500px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
       }
-      .hero h1 {
-        font-size: 4.5rem;
-      }
-    }
-
-    .card, .btn, .order-btn {
-      -webkit-tap-highlight-color: transparent;
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <!-- HERO SECTION -->
     <section class="hero">
-      <h1>BARR STOREE</h1>
+      <h1>BARR STORE</h1>
       <div class="tagline">Layanan Digital Premium</div>
       <p>Menyediakan berbagai layanan digital premium, top up game, akun premium, desain grafis, dan layanan digital lainnya dengan proses cepat dan terpercaya.</p>
     </section>
 
-    <!-- CATALOG SECTION -->
     <section>
       <h2>📦 CATALOG LAYANAN</h2>
       <div class="catalog-grid" id="catalogGrid"></div>
     </section>
 
-    <!-- PEMBAYARAN QRIS (kotak, ukuran besar) -->
-    <section>
-      <h2>📲 PEMBAYARAN QRIS</h2>
-      <div class="qris-box">
-        <h3>BARR STORE</h3>
-        <div class="subtitle">PEMBAYARAN MUDAH & CEPAT</div>
-        
-        <!-- QRIS PEMBAYARAN - GANTI src DENGAN FILE ANDA -->
-        <img src="qrissbarrstoree.jpeg" 
-             alt="QRIS BARR STORE" 
-             style="width:100%; max-width:300px; height:auto; display:block; margin:0 auto; border-radius:0; box-shadow:0 8px 20px rgba(0,0,0,0.5);"
-             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300?text=QR+Tidak+Ditemukan';">
-
-        <div class="qris-id">
-          <p>NMDID: ID1025453021160 | A01</p>
-          <p>www.aspi-qris.id</p>
-        </div>
-        <p style="color: #b1c3e0; margin-top: 20px;">Scan QRIS untuk melakukan pembayaran.</p>
-      </div>
-    </section>
-
-    <!-- GRUP WHATSAPP (kotak, ukuran besar) -->
-    <section>
-      <h2>👥 GRUP WHATSAPP</h2>
-      <div class="qris-box">
-        <h3>BARR STORE GROUP</h3>
-        <div class="subtitle">BERGABUNG DENGAN KOMUNITAS</div>
-        
-        <!-- QR GRUP WHATSAPP - GANTI src DENGAN FILE ANDA -->
-        <img src="qriswa.png" 
-             alt="QR Grup WhatsApp" 
-             style="width:100%; max-width:300px; height:auto; display:block; margin:0 auto; border-radius:0; box-shadow:0 8px 20px rgba(0,0,0,0.5);"
-             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300?text=Grup+Tidak+Ditemukan';">
-
-        <div style="margin-top:15px; font-size:0.9rem; color:#b1c3e0; background:rgba(255,255,255,0.02); padding:12px; border-radius:40px; border:1px solid #2f3540; display:inline-block;">
-          <p>QR Grup • BARR STORE</p>
-          <p>Komunitas digital</p>
-        </div>
-        <p style="color: #b1c3e0; margin-top: 20px;">Scan QRIS ini untuk bergabung di grup WhatsApp. Dapatkan info terbaru, promo, dan diskusi seru!</p>
-      </div>
-    </section>
-
-    <!-- INFO PEMESANAN + NOMOR TELEPON + TOMBOL -->
     <section class="info-pesan">
       <div class="contact-label">HUBUNGI ADMIN</div>
       <div class="contact-number">0857-7123-8569</div>
-      <a href="https://api.whatsapp.com/send?phone=6285771238569&text=Halo%20admin%2C%20saya%20mau%20order%20layanan%20digital" class="btn btn-large" target="_blank" rel="noopener">
+      <a href="https://api.whatsapp.com/send?phone=6285771238569&text=Halo%20admin%2C%20saya%20mau%20order%20layanan%20digital" class="btn btn-large" target="_blank">
         <i class="fa-brands fa-whatsapp" style="margin-right: 10px;"></i> HUBUNGI ADMIN
       </a>
+      <div class="info-notes">
+        <span><i class="fas fa-bolt"></i> Tanya harga & stok via WhatsApp</span>
+        <span><i class="fas fa-bolt"></i> Admin siap bantu proses order</span>
+      </div>
       <div class="order-caption">ORDER VIA WHATSAPP</div>
     </section>
   </main>
 
-  <footer>
+  <!-- MODAL POPUP -->
+  <div id="privacyModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
+      <h3>Kebijakan Privasi</h3>
+      <p>Kami menghargai privasi pelanggan. Semua data yang diberikan (nama, nomor WhatsApp, bukti pembayaran) hanya digunakan untuk keperluan transaksi di BARR STORE.</p>
+      <ul>
+        <li>Data tidak akan dibagikan ke pihak lain tanpa izin</li>
+        <li>Data hanya digunakan untuk proses order & konfirmasi</li>
+        <li>Kami menjaga keamanan data pelanggan sebaik mungkin</li>
+      </ul>
+      <p>Dengan melakukan transaksi, pelanggan dianggap setuju dengan kebijakan ini.</p>
+    </div>
+  </div>
+
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('termsModal')">&times;</span>
+      <h3>Syarat & Ketentuan</h3>
+      <p>Dengan melakukan order di BARR STORE, pelanggan dianggap setuju dengan syarat berikut:</p>
+      <ul>
+        <li>Semua transaksi bersifat NO REFUND / NO CANCEL</li>
+        <li>Kesalahan input dari pembeli bukan tanggung jawab admin</li>
+        <li>Wajib konfirmasi & tanya stok sebelum pembayaran</li>
+        <li>Order diproses sesuai antrian</li>
+        <li>Estimasi pengerjaan maksimal 1x24 jam</li>
+        <li>Produk digital tidak bisa dikembalikan</li>
+        <li>Garansi hanya berlaku sesuai deskripsi produk</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="aboutModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('aboutModal')">&times;</span>
+      <h3>Tentang Kami</h3>
+      <p>BARR STORE adalah toko digital yang menyediakan berbagai layanan premium seperti top up game, akun premium, dan jasa digital lainnya.</p>
+      <p>Kami berkomitmen memberikan:</p>
+      <ul>
+        <li>Pelayanan cepat & responsif</li>
+        <li>Harga bersaing</li>
+        <li>Produk aman & terpercaya</li>
+      </ul>
+      <p>Kepuasan pelanggan adalah prioritas utama kami.</p>
+    </div>
+  </div>
+
+  <div id="hoursModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('hoursModal')">&times;</span>
+      <h3>Jam Operasional</h3>
+      <ul>
+        <li>Open : 07.00</li>
+        <li>Close : 22.00</li>
+        <li>Jumat Berkah : Extra Promo!</li>
+      </ul>
+      <p style="margin-top: 10px;"><strong>PROMO SETIAP JUMAT BERKAH</strong><br>Diskon spesial & cashback setiap Jumat!</p>
+    </div>
+  </div>
+
+  <div id="regulationModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('regulationModal')">&times;</span>
+      <h3>Regulation</h3>
+      <ul>
+        <li>Dilarang promosi tanpa izin admin</li>
+        <li>Wajib tanya sebelum pembayaran</li>
+        <li>Dilarang konten 18+</li>
+        <li>Dilarang rusuh & spam</li>
+        <li>Dilarang tag SW / share grup</li>
+        <li>Keluar GC = order hangus</li>
+        <li>Wajib sertakan bukti TF</li>
+        <li>Semua transaksi NO REF</li>
+        <li>APK Premium bergaransi sesuai S&K</li>
+        <li>Proses sesuai antrian</li>
+        <li>Pelanggaran → tindakan tegas admin</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="ordernoteModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('ordernoteModal')">&times;</span>
+      <h3>Order Note</h3>
+      <ul>
+        <li>Order disini WAJIB SABAR</li>
+        <li>No spam / no rusuh</li>
+        <li>Max done order ± 24 jam</li>
+        <li>Harga bisa berubah, tanya stok dulu</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="reviewModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('reviewModal')">&times;</span>
+      <h3>⭐ Ulasan Pelanggan</h3>
+      <p>Kami selalu mengutamakan kepuasan pelanggan 💬</p>
+      <p><strong>📌 Beberapa review dari customer:</strong></p>
+      <ul>
+        <li>⭐⭐⭐⭐⭐ "Proses cepat, trusted banget!"</li>
+        <li>⭐⭐⭐⭐⭐ "Admin ramah & fast respon"</li>
+        <li>⭐⭐⭐⭐⭐ "Udah langganan disini, aman!"</li>
+        <li>⭐⭐⭐⭐⭐ "Harga murah, pelayanan mantap!"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="checkModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('checkModal')">&times;</span>
+      <h3>📋 Cek Transaksi</h3>
+      <p>Untuk memastikan status order kamu, gunakan format berikut:</p>
+      <p><strong>📌 Format cek:</strong><br>
+      Nama: <br>
+      Tanggal Order: <br>
+      Produk: <br>
+      Bukti TF:</p>
+      <p>📤 Kirim ke admin untuk pengecekan<br>
+      ⏳ Estimasi respon sesuai antrian</p>
+      <p><strong>⚠️ Note:</strong><br>
+      Pastikan data yang dikirim benar<br>
+      Tanpa bukti transaksi, tidak bisa diproses</p>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('contactModal')">&times;</span>
+      <h3>📞 Hubungi Kami</h3>
+      <p>Butuh bantuan? Hubungi admin kami 👇</p>
+      <p>📱 WhatsApp: <strong>0857-7123-8569</strong><br>
+      🕒 Jam Operasional: <strong>07.00 – 22.00</strong><br>
+      💬 Fast respon di jam kerja<br>
+      🚫 No spam / no call tanpa izin</p>
+    </div>
+  </div>
+
+  <div id="promoModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('promoModal')">&times;</span>
+      <h3>🎉 Promo Jumat Berkah</h3>
+      <p>Setiap Jumat, dapatkan diskon spesial dan cashback untuk semua produk!</p>
+      <ul>
+        <li>💰 Diskon up to 10%</li>
+        <li>💵 Cashback 5k - 20k</li>
+        <li>🎁 Bonus produk tertentu</li>
+      </ul>
+      <p><strong>Kode Promo:</strong> JUMATBERKAH</p>
+      <p>Minimal pembelian 25k. Syarat & ketentuan berlaku.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER 4 KOLOM SEJAJAR -->
+  <footer class="footer-modern">
     <div class="container">
-      official barr store id
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>BARR STORE</h4>
+          <a onclick="openModal('aboutModal')">Tentang Kami</a>
+          <a onclick="openModal('checkModal')">Cek Transaksi</a>
+          <a onclick="openModal('contactModal')">Hubungi Kami</a>
+          <a onclick="openModal('reviewModal')">Ulasan</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legalitas</h4>
+          <a onclick="openModal('privacyModal')">Kebijakan Privasi</a>
+          <a onclick="openModal('termsModal')">Syarat & Ketentuan</a>
+        </div>
+        <div class="footer-col">
+          <h4>Dukungan</h4>
+          <a href="https://wa.me/6285771238569" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="https://www.instagram.com/offcialbarrstore" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="mailto:barrstoreidcom@gmail.com"><i class="far fa-envelope"></i> Email</a>
+        </div>
+        <div class="footer-col">
+          <h4>Lainnya</h4>
+          <a onclick="openModal('hoursModal')">Jam Operasional</a>
+          <a onclick="openModal('regulationModal')">Regulation</a>
+          <a onclick="openModal('ordernoteModal')">Order Note</a>
+          <a onclick="openModal('promoModal')">Promo Jumat Berkah</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 BARR STORE. All rights reserved.</div>
+      </div>
     </div>
   </footer>
 
   <script>
-    (function() {
-      // ---------- DATA KATEGORI (10 card) dengan item huruf besar semua ----------
-      const categories = [
-        {
-          name: "APK PREMIUM",
-          items: [
-            "APPLE MUSIC", "BLACKBOX AI", "BSTATION", "CAMSCANNER", "CANVA", "CAPCUT", "CATCHPLAY", "CHATGPT",
-            "DAZZCAM", "DISNEY+", "DRAMABOX", "GEMINI", "GETCONTACT", "GTC", "HBO MAX", "IBIS PAINT",
-            "IQIYI", "LIGHTROOM", "LOKLOK", "MEITU", "NETFLIX", "PADLET", "PERPLEXITY", "PICSART",
-            "POLLAR", "PRIME VIDEO", "REMINI", "SCRIBD", "SHORTMAX", "SPOTIFY", "TELEGRAM PREMIUM",
-            "VIDIO", "VIU", "WATTPAD", "WETV", "YOUKU", "YOUTUBE PREMIUM", "ZOOM"
-          ]
-        },
-        {
-          name: "JUAL BELI AKUN",
-          items: ["ALL GAME"]
-        },
-        {
-          name: "DESAIN GRAFIS",
-          items: ["LOGO", "BANNER", "SLOGAN", "POSTER"]
-        },
-        {
-          name: "TOP UP GAME",
-          items: ["ROBLOX", "MLBB", "PUBG", "FC MOBILE"]
-        },
-        {
-          name: "PULSA / VOUCHER",
-          items: ["TELKOMSEL", "INDOSAT", "SMARTFREN", "XL", "AXIS", "TRI"]
-        },
-        {
-          name: "NOKOS TELEGRAM",
-          items: [
-            "INDONESIA", "MALAYSIA", "ENGLAND", "RUSSIA", "COLOMBIA", "BRAZIL",
-            "GERMAN", "PHILIPPINES", "AUSTRALIA", "FRANCE", "TURKEY", "USA"
-          ]
-        },
-        {
-          name: "NOKOS NOGAR",
-          items: [
-            "WHATSAPP", "TIKTOK", "DANA", "LAZADA", "SHOPE", "TOKO PEDIA",
-            "OVO", "GOJEK", "GRAB", "LINE"
-          ]
-        },
-        {
-          name: "JASA BUG",
-          items: ["VIRTEX", "LACAK ALAMAT", "SPAM", "CAL", "BANNED"]
-        },
-        {
-          name: "JOKI GAME",
-          items: ["MLBB"]   // ← hanya MLBB saja
-        },
-        {
-          name: "OPEN FREELANCE",
-          items: ["MODAL CUMAN 7K"]
-        }
-      ];
-
-      const WA_NUMBER = "6285771238569";
-      const grid = document.getElementById('catalogGrid');
-
-      // Fungsi untuk mendapatkan suffix kategori (untuk pesan order)
-      function getCategorySuffix(catName) {
-        if (catName === "APK PREMIUM") return "Premium";
-        if (catName === "JUAL BELI AKUN") return "Jual Beli Akun";
-        if (catName === "DESAIN GRAFIS") return "Desain Grafis";
-        if (catName === "TOP UP GAME") return "Top Up Game";
-        if (catName === "PULSA / VOUCHER") return "Pulsa Voucher";
-        if (catName === "NOKOS TELEGRAM") return "Nokos Telegram";
-        if (catName === "NOKOS NOGAR") return "Nokos Nogar";
-        if (catName === "JASA BUG") return "Jasa Bug";
-        if (catName === "JOKI GAME") return "Joki Game";
-        if (catName === "OPEN FREELANCE") return "Open Freelance";
-        return catName;
+    // MODAL FUNCTIONS
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
       }
+    }
 
-      // Fungsi order dengan format: Halo admin, saya mau order [item] [suffix]. Apakah masih tersedia?
-      function createOrderLink(categoryName, serviceName) {
-        const suffix = getCategorySuffix(categoryName);
-        const text = `Halo admin, saya mau order ${serviceName} ${suffix}. Apakah masih tersedia?`;
-        return `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(text)}`;
+    // KATEGORI DATA
+    const categoriesData = [
+      { name: "APK PREMIUM", action: "order", items: ["APPLE MUSIC", "BLACKBOX AI", "BSTATION", "CAMSCANNER", "CANVA PRO", "CAPCUT PRO", "CATCHPLAY", "CHATGPT PLUS", "DAZZCAM", "DISNEY+", "DRAMABOX", "GEMINI", "GETCONTACT", "GTC", "HBO MAX", "IBIS PAINT", "IQIYI", "LIGHTROOM", "LOKLOK", "MEITU", "NETFLIX", "PADLET", "PERPLEXITY", "PICSART", "POLLAR", "PRIME VIDEO", "REMINI", "SCRIBD", "SHORTMAX", "SPOTIFY", "TELEGRAM PREMIUM", "VIDIO", "VIU", "WATTPAD", "WETV", "YOUKU", "YOUTUBE PREMIUM", "ZOOM PRO"] },
+      { name: "JUAL BELI AKUN", action: "beli akun", items: ["MLBB", "FC MOBILE", "EFOOTBALL", "PUBG", "ROBLOX", "DREAM LEAGUE SOCCER"] },
+      { name: "DESAIN GRAFIS", action: "order jasa desain", items: ["LOGO", "BANNER", "SLOGAN", "POSTER"] },
+      { name: "TOP UP GAME", action: "top up", items: ["MLBB", "ROBLOX", "EFOOTBALL", "FREE FIRE", "PUBG", "HOK"] },
+      { name: "PULSA / VOUCHER", action: "beli pulsa", items: ["TELKOMSEL", "INDOSAT", "SMARTFREN", "XL", "AXIS", "TRI"] },
+      { name: "REKBER GAME", action: "order rekber game", items: ["HOK", "MLBB", "PUBG", "FREE FIRE", "EFOOTBALL", "DREAM LEAGUE SOCCER"] },
+      { name: "NOKOS NOGAR", action: "order nokos nogar", items: ["WHATSAPP", "TIKTOK", "DANA", "LAZADA", "SHOPE", "TOKO PEDIA", "OVO", "GOJEK", "GRAB", "LINE"] },
+      { name: "JASA BUG", action: "order jasa bug", items: ["VIRTEX", "LACAK ALAMAT", "SPAM CALL", "SPAM WA", "CAL", "BANNED"] },
+      { name: "JOKI GAME", action: "order", items: ["JOKI MLBB", "JOKGEN MLBB"], special: true },
+      { name: "OPEN FREELANCE", action: "join open freelance", items: ["MODAL CUMAN 7K"] }
+    ];
+    
+    const WA_NUMBER = "6285771238569";
+    const grid = document.getElementById('catalogGrid');
+    
+    function getCustomMessage(category, itemName) {
+      if (category.name === "JOKI GAME") {
+        return `Halo admin, saya mau order ${itemName}. Mau joki berapa bintang ka?`;
       }
-
-      // Render card
-      categories.forEach(cat => {
-        const card = document.createElement('div');
-        card.className = 'card';
-
-        const headerDiv = document.createElement('div');
-        headerDiv.className = 'card-header';
-        headerDiv.innerHTML = `<h3>${cat.name}</h3>`;
-        card.appendChild(headerDiv);
-
-        const dropdownDiv = document.createElement('div');
-        dropdownDiv.className = 'dropdown';
-        const ul = document.createElement('ul');
-
-        cat.items.forEach(service => {
-          const li = document.createElement('li');
-          li.innerHTML = `<span>${service}</span>`;
-
-          const orderBtn = document.createElement('a');
-          orderBtn.href = createOrderLink(cat.name, service);
-          orderBtn.target = '_blank';
-          orderBtn.rel = 'noopener';
-          orderBtn.className = 'order-btn';
-          orderBtn.innerText = 'ORDER';
-          
-          orderBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-          });
-
-          li.appendChild(orderBtn);
-          ul.appendChild(li);
-        });
-
-        dropdownDiv.appendChild(ul);
-        card.appendChild(dropdownDiv);
-
-        card.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const allCards = document.querySelectorAll('.card');
-          allCards.forEach(c => {
-            if (c !== card) {
-              c.classList.remove('active');
-            }
-          });
-          card.classList.toggle('active');
-        });
-
-        grid.appendChild(card);
+      return `Halo admin, saya mau ${category.action} ${itemName}.`;
+    }
+    
+    function createOrderLink(category, itemName) {
+      const text = getCustomMessage(category, itemName);
+      return `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(text)}`;
+    }
+    
+    categoriesData.forEach(cat => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<div class="card-header"><h3>${cat.name}</h3></div>`;
+      
+      const dropdownDiv = document.createElement('div');
+      dropdownDiv.className = 'dropdown';
+      const ul = document.createElement('ul');
+      
+      cat.items.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${item}</span>`;
+        const orderBtn = document.createElement('a');
+        orderBtn.href = createOrderLink(cat, item);
+        orderBtn.target = '_blank';
+        orderBtn.rel = 'noopener';
+        orderBtn.className = 'order-btn';
+        orderBtn.innerText = 'ORDER';
+        orderBtn.addEventListener('click', (e) => e.stopPropagation());
+        li.appendChild(orderBtn);
+        ul.appendChild(li);
       });
-
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.card')) {
-          document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
-        }
+      
+      dropdownDiv.appendChild(ul);
+      card.appendChild(dropdownDiv);
+      
+      card.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.card').forEach(c => {
+          if (c !== card) c.classList.remove('active');
+        });
+        card.classList.toggle('active');
       });
-    })();
+      
+      grid.appendChild(card);
+    });
+    
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.card')) {
+        document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
+      }
+    });
   </script>
-
-  <!-- sedikit penyesuaian ekstra -->
-  <style>
-    .card.active .dropdown {
-      max-height: 600px;
-      overflow-y: auto;
-    }
-    .dropdown ul {
-      padding-left: 0;
-    }
-    .card:active {
-      transform: scale(0.99);
-    }
-    .order-btn {
-      white-space: nowrap;
-    }
-    @media (max-width: 480px) {
-      .dropdown li {
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-      }
-      .order-btn {
-        width: 100%;
-        text-align: center;
-      }
-    }
-  </style>
 </body>
 </html>
