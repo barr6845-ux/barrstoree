@@ -2,285 +2,447 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>BARR STORE • Layanan Digital Premium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>BARR STORE - Digital Premium</title>
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e3a8a'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-family='Arial'%3EBS%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background-color: #0a0c0f; color: #e8edf2; line-height: 1.5; scroll-behavior: smooth; }
-    :root {
-      --bg-dark: #0a0c0f; --card-bg: #1e2229; --border-dim: #2c313a;
-      --accent-grad: linear-gradient(135deg, #7f5af0, #2cb67d);
-      --accent-light: #a78bfa; --text-secondary: #a0a8b7;
-      --shadow-soft: 0 12px 30px -8px rgba(0, 0, 0, 0.6), 0 4px 10px rgba(0, 0, 0, 0.3);
-      --radius-card: 24px; --radius-btn: 60px;
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-page);
+      color: var(--text);
+      padding-bottom: 70px;
+      transition: background 0.2s, color 0.2s;
     }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    h2 { font-size: 1.8rem; margin-bottom: 1.5rem; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; background: var(--accent-grad); color: white; font-weight: 600; border-radius: var(--radius-btn); text-decoration: none; transition: 0.2s; box-shadow: 0 8px 20px -8px rgba(127,90,240,0.4); border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-    .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px -8px #7f5af0; }
-    .btn-large { width: 100%; padding: 18px 20px; font-size: 1.2rem; }
-    .hero { padding: 40px 0 30px; }
-    .hero h1 { font-size: 3.2rem; font-weight: 700; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
-    .hero .tagline { font-size: 1.1rem; color: var(--accent-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-    .hero p { color: var(--text-secondary); max-width: 500px; margin-bottom: 30px; }
-    .catalog-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin: 30px 0 40px; }
-    @media (min-width: 600px) { .catalog-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 900px) { .catalog-grid { grid-template-columns: repeat(3, 1fr); } .hero h1 { font-size: 4.5rem; } }
-    .card { background: var(--card-bg); border-radius: var(--radius-card); padding: 20px 18px; border: 1px solid var(--border-dim); box-shadow: var(--shadow-soft); transition: 0.2s; cursor: pointer; }
-    .card:hover { transform: translateY(-6px); border-color: #7f5af0; box-shadow: 0 25px 35px -12px #000000dd, 0 0 0 1px #7f5af0 inset; }
-    .card-header h3 { font-size: 1.4rem; font-weight: 600; color: white; pointer-events: none; }
-    .dropdown { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.3s; margin-top: 0; background: rgba(10,12,15,0.7); backdrop-filter: blur(8px); border-radius: 20px; border: 1px solid transparent; }
-    .card.active .dropdown { max-height: 700px; opacity: 1; margin-top: 20px; border-color: #3f3f5e; padding: 12px 8px; overflow-y: auto; }
-    .dropdown ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .dropdown li { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 10px 16px; border-radius: 40px; border: 1px solid #2f3540; font-size: 0.9rem; flex-wrap: wrap; gap: 8px; }
-    .dropdown .subcategory-title { font-weight: 600; color: var(--accent-light); margin: 8px 0 4px 0; padding-left: 8px; border-left: 3px solid #7f5af0; display: block; width: 100%; background: transparent; border-radius: 0; border: none; font-size: 1rem; }
-    @media (max-width: 480px) { .dropdown li { flex-direction: column; text-align: center; } .order-btn { width: 100%; } }
-    .order-btn { background: var(--accent-grad); border: none; color: white; padding: 6px 16px; border-radius: 40px; font-weight: 600; font-size: 0.8rem; text-decoration: none; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); white-space: nowrap; }
-    .order-btn:hover { transform: scale(1.05); background: #8f6ef0; }
-
-    .info-pesan {
-      background: #151a24;
-      border-radius: 32px;
-      padding: 30px 20px;
-      text-align: center;
-      margin: 40px 0 20px;
+    body.theme-blue {
+      --bg-page: #0a0f1e;
+      --bg-card: #0f172a;
+      --border: #1e293b;
+      --primary: #1e3a8a;
+      --primary-hover: #1e40af;
+      --text: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --accent: #3b82f6;
     }
-    .contact-number {
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: var(--accent-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 10px 0 5px;
-      letter-spacing: 1px;
+    body.theme-black {
+      --bg-page: #000000;
+      --bg-card: #0a0a0a;
+      --border: #1a1a1a;
+      --primary: #1f2937;
+      --primary-hover: #374151;
+      --text: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --accent: #3b82f6;
     }
-    .contact-label {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    body { background: var(--bg-page); color: var(--text); }
+    .sidebar, .bottom-nav, .produk-card, .cart-item, .riwayat-item, .akun-card, .filter-bar, .modal-content {
+      background: var(--bg-card);
+      border-color: var(--border);
     }
-    .order-caption {
-      color: #6f7a8c;
-      font-size: 0.9rem;
-      margin-top: 15px;
-      font-style: italic;
+    .kategori-item {
+      background: var(--border);
+      color: var(--text);
     }
-    .info-notes {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin: 15px 0 5px;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
+    .kategori-item.active {
+      background: var(--primary);
+      color: white;
     }
-    .info-notes span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .btn-add, .checkout-btn, .btn-login {
+      background: var(--primary);
+      color: white;
     }
-
-    .modal {
-      display: none;
-      position: fixed;
+    .nav-item.active {
+      color: var(--accent);
+    }
+    .search-input, .filter-select {
+      background: var(--bg-card);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .container { max-width: 640px; margin: 0 auto; padding: 0 1rem 5rem; }
+    .navbar {
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
-      justify-content: center;
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      padding: 1rem;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
     }
-    .modal-content {
-      background: #1a1e2a;
-      border-radius: 28px;
-      max-width: 500px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-      padding: 28px;
-      border: 1px solid #7f5af0;
-      position: relative;
-    }
-    .modal-content h3 { font-size: 1.5rem; margin-bottom: 20px; color: #a78bfa; }
-    .modal-content p, .modal-content li { color: #cbd5e6; font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px; }
-    .modal-content ul { padding-left: 20px; margin: 10px 0; }
-    .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #a78bfa; transition: 0.2s; }
-    .close-modal:hover { color: #fff; }
-
-    .footer-modern {
-      background: #0f111a;
-      border-top: 1px solid #262b34;
-      padding: 50px 0 30px;
-      margin-top: 40px;
-    }
-    .footer-grid {
+    .nav-left, .nav-right { display: flex; gap: 1.2rem; }
+    .nav-icon { font-size: 1.5rem; cursor: pointer; background: none; border: none; color: var(--text); }
+    .navbar h1 { font-size: 1.6rem; font-weight: 700; color: var(--text); }
+    .info-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-      margin-bottom: 40px;
+      gap: 12px;
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+      text-align: center;
     }
-    .footer-col h4 { font-size: 1rem; font-weight: 600; color: #cbd5e6; margin-bottom: 18px; letter-spacing: 1px; }
-    .footer-col a { display: block; color: #8e98b5; text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: 0.2s; cursor: pointer; }
-    .footer-col a:hover { color: #a78bfa; transform: translateX(4px); }
-    .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid #262b34; font-size: 0.8rem; color: #6c728f; }
-    @media (max-width: 800px) {
-      .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    .info-card .label { font-size: 0.7rem; color: var(--text-secondary); }
+    .info-card .value { font-weight: 700; font-size: 1.1rem; color: var(--text); }
+    .marquee-banner { background: var(--primary); color: white; padding: 10px; border-radius: 40px; margin-bottom: 1rem; overflow: hidden; white-space: nowrap; }
+    .marquee-banner marquee { font-size: 0.85rem; font-weight: 500; }
+    .search-box { margin-bottom: 1rem; }
+    .search-input { width: 100%; padding: 12px 16px; border-radius: 40px; border: 1px solid var(--border); background: var(--bg-card); font-size: 0.9rem; }
+    .filter-row { display: flex; gap: 10px; margin-bottom: 1rem; }
+    .filter-select { flex: 1; padding: 10px 12px; border-radius: 40px; border: 1px solid var(--border); background: var(--bg-card); }
+    .kategori-scroll { overflow-x: auto; white-space: nowrap; padding: 0.5rem 0; margin-bottom: 1rem; }
+    .kategori-item { display: inline-block; padding: 0.5rem 1.2rem; border-radius: 40px; margin-right: 8px; font-size: 0.8rem; font-weight: 500; cursor: pointer; }
+    .produk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .produk-card { border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: 0.2s; }
+    .produk-img { background: var(--border); height: 100px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--text-secondary); }
+    .produk-info { padding: 0.8rem; }
+    .produk-title { font-weight: 600; font-size: 0.95rem; color: var(--text); }
+    .produk-desc { font-size: 0.7rem; color: var(--text-secondary); margin: 4px 0; }
+    .produk-stok { font-size: 0.7rem; color: #22c55e; margin-top: 4px; }
+    .btn-add { border: none; padding: 0.4rem 0.8rem; border-radius: 40px; font-size: 0.75rem; width: 100%; margin-top: 8px; cursor: pointer; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border-radius: 20px; margin-bottom: 12px; border: 1px solid var(--border); background: var(--bg-card); }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
+    .cart-item-price { font-size: 0.8rem; color: var(--text-secondary); }
+    .cart-qty { display: flex; align-items: center; gap: 12px; }
+    .qty-btn { width: 32px; height: 32px; border-radius: 16px; border: none; background: var(--border); font-weight: bold; cursor: pointer; color: var(--text); font-size: 1.1rem; }
+    .qty-btn.delete { background: #dc2626; color: white; width: auto; padding: 0 12px; }
+    .cart-empty { text-align: center; padding: 2rem; color: var(--text-secondary); }
+    .cart-summary { border-radius: 20px; padding: 1rem; margin-top: 1rem; border: 1px solid var(--border); }
+    .checkout-btn { border: none; width: 100%; padding: 0.8rem; border-radius: 40px; font-weight: bold; margin-top: 1rem; cursor: pointer; }
+    .riwayat-item { border-radius: 16px; padding: 12px; margin-bottom: 12px; border: 1px solid var(--border); }
+    .riwayat-note { font-size: 0.75rem; color: var(--text-secondary); margin-top: 6px; }
+    .akun-card { border-radius: 24px; padding: 1.5rem; margin-bottom: 1rem; text-align: center; border: 1px solid var(--border); }
+    .akun-avatar { background: var(--primary); width: 60px; height: 60px; border-radius: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-weight: bold; font-size: 1.5rem; }
+    .akun-store-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+    .akun-section { text-align: left; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .akun-menu-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+    .logout-item { color: #ef4444; font-weight: 600; }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.7rem 0.5rem;
+      border-top: 1px solid var(--border);
+      max-width: 640px;
+      margin: 0 auto;
+      width: 100%;
+      z-index: 100;
     }
-    @media (max-width: 500px) {
-      .footer-grid { grid-template-columns: 1fr; gap: 25px; }
-    }
-
-    /* PRELOADER */
-    .preloader {
+    .nav-item { text-align: center; color: var(--text-secondary); font-size: 0.7rem; background: none; border: none; flex: 1; cursor: pointer; }
+    .nav-item i { font-size: 1.4rem; display: block; margin-bottom: 2px; }
+    .sidebar {
       position: fixed;
       top: 0;
-      left: 0;
-      width: 100%;
+      left: -280px;
+      width: 280px;
       height: 100%;
-      background: #0a0c0f;
-      z-index: 9999;
+      background: var(--bg-card);
+      z-index: 200;
+      transition: left 0.3s;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.5);
+      padding: 1rem;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.5s ease;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
     }
-    .preloader.hide {
+    .sidebar.open { left: 0; }
+    .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 199; display: none; }
+    .overlay.active { display: block; }
+    .sidebar-header { display: flex; justify-content: space-between; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .sidebar-menu { flex: 1; margin-top: 1rem; }
+    .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; cursor: pointer; border-bottom: 1px solid var(--border); }
+    .theme-toggle-item { margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 300; align-items: center; justify-content: center; }
+    .modal-content { max-width: 500px; width: 90%; border-radius: 28px; padding: 1.5rem; max-height: 80vh; overflow-y: auto; text-align: left; }
+    .modal-header { display: flex; justify-content: space-between; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    .close-modal { font-size: 1.8rem; cursor: pointer; }
+    .broadcast-section { margin-bottom: 1.5rem; }
+    .broadcast-section h4 { margin-bottom: 0.5rem; color: var(--accent); }
+    .broadcast-section ul { padding-left: 1.5rem; }
+    .broadcast-section li { margin-bottom: 0.3rem; font-size: 0.85rem; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      z-index: 150;
       opacity: 0;
+      transition: opacity 0.3s;
       pointer-events: none;
+      white-space: nowrap;
     }
-    .loader {
-      width: 60px;
-      height: 60px;
-      border: 4px solid #2c313a;
-      border-top: 4px solid #7f5af0;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    .toast.show { opacity: 1; }
+    input, select { color-scheme: dark; }
   </style>
 </head>
-<body>
-
-<!-- PRELOADER -->
-<div class="preloader" id="preloader">
-  <div class="loader"></div>
+<body class="theme-blue">
+<div class="toast" id="toastMsg">Produk ditambahkan</div>
+<div class="overlay" id="overlay"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header"><h3>Menu</h3><i class="fas fa-times" id="closeSidebar" style="cursor:pointer;"></i></div>
+  <div class="sidebar-menu">
+    <div class="sidebar-item" data-nav="home"><i class="fas fa-home"></i> Home</div>
+    <div class="sidebar-item" data-nav="produk"><i class="fas fa-box"></i> Produk</div>
+    <div class="sidebar-item" data-nav="cart"><i class="fas fa-shopping-cart"></i> Keranjang</div>
+    <div class="sidebar-item" data-nav="riwayat"><i class="fas fa-history"></i> Riwayat</div>
+    <div class="sidebar-item" data-nav="akun"><i class="fas fa-user"></i> Akun</div>
+  </div>
+  <div class="theme-toggle-item sidebar-item" id="themeToggleSidebar">
+    <i class="fas fa-palette"></i> Ganti Tema (Biru/Hitam)
+  </div>
 </div>
 
-<main class="container">
-<section class="hero"><h1>BARR STORE</h1><div class="tagline">Layanan Digital Premium</div><p>Menyediakan berbagai layanan digital premium, top up game, akun premium, desain grafis, dan layanan digital lainnya dengan proses cepat dan terpercaya.</p></section>
-<section><h2>CATALOG LAYANAN</h2><div class="catalog-grid" id="catalogGrid"></div></section>
-<section class="info-pesan"><div class="contact-label">HUBUNGI ADMIN</div><div class="contact-number">0857-7123-8569</div><a href="https://wa.me/6285771238569" class="btn btn-large" target="_blank"><i class="fa-brands fa-whatsapp"></i> HUBUNGI ADMIN</a><div class="info-notes"><span><i class="fas fa-bolt"></i> Tanya harga & stok via WhatsApp</span><span><i class="fas fa-bolt"></i> Admin siap bantu proses order</span></div><div class="order-caption">ORDER VIA WHATSAPP</div></section>
-</main>
+<div class="navbar">
+  <div class="nav-left"><button class="nav-icon" id="menuIcon"><i class="fas fa-bars"></i></button></div>
+  <h1>BARR STORE</h1>
+  <div class="nav-right">
+    <button class="nav-icon" id="notifIcon"><i class="fas fa-bell"></i></button>
+    <button class="nav-icon" id="profileIcon"><i class="fas fa-user-circle"></i></button>
+  </div>
+</div>
 
-<div id="privacyModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('privacyModal')">&times;</span><h3>Kebijakan Privasi</h3><p>Kami menghargai privasi pelanggan. Semua data yang diberikan hanya digunakan untuk keperluan transaksi di BARR STORE.</p><ul><li>Data tidak dibagikan ke pihak lain</li><li>Data hanya untuk proses order & konfirmasi</li><li>Kami menjaga keamanan data sebaik mungkin</li></ul><p>Dengan melakukan transaksi, pelanggan dianggap setuju.</p></div></div>
-<div id="termsModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('termsModal')">&times;</span><h3>Syarat & Ketentuan</h3><p>Dengan order di BARR STORE, pelanggan setuju:</p><ul><li>NO REFUND / NO CANCEL</li><li>Kesalahan input bukan tanggung jawab admin</li><li>Wajib konfirmasi & tanya stok sebelum bayar</li><li>Order diproses sesuai antrian</li><li>Estimasi maksimal 1x24 jam</li><li>Produk digital tidak bisa dikembalikan</li><li>Garansi sesuai deskripsi produk</li></ul></div></div>
-<div id="aboutModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('aboutModal')">&times;</span><h3>Tentang Kami</h3><p>BARR STORE adalah toko digital premium yang menyediakan top up game, akun premium, dan jasa digital lainnya.</p><p>Komitmen kami:</p><ul><li>Pelayanan cepat & responsif</li><li>Harga bersaing</li><li>Produk aman & terpercaya</li></ul><p>Kepuasan pelanggan adalah prioritas utama.</p></div></div>
-<div id="hoursModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('hoursModal')">&times;</span><h3>Jam Operasional</h3><ul><li>Open : 07.00</li><li>Close : 22.00</li><li>Jumat Berkah : Extra Promo!</li></ul><p><strong>PROMO SETIAP JUMAT BERKAH</strong><br>Diskon spesial & cashback!</p></div></div>
-<div id="regulationModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('regulationModal')">&times;</span><h3>Regulation</h3><ul><li>Dilarang promosi tanpa izin admin</li><li>Wajib tanya sebelum pembayaran</li><li>Dilarang konten 18+</li><li>Dilarang rusuh & spam</li><li>Dilarang tag SW / share grup</li><li>Keluar GC = order hangus</li><li>Wajib sertakan bukti TF</li><li>Semua transaksi NO REF</li><li>APK Premium bergaransi sesuai S&K</li><li>Proses sesuai antrian</li><li>Pelanggaran → tindakan tegas</li></ul></div></div>
-<div id="ordernoteModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('ordernoteModal')">&times;</span><h3>Order Note</h3><ul><li>Order disini WAJIB SABAR</li><li>No spam / no rusuh</li><li>Max done order ± 24 jam</li><li>Harga bisa berubah, tanya stok dulu</li></ul></div></div>
-<div id="reviewModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('reviewModal')">&times;</span><h3>⭐ Ulasan Pelanggan</h3><ul><li>⭐⭐⭐⭐⭐ "Proses cepat, trusted banget!"</li><li>⭐⭐⭐⭐⭐ "Admin ramah & fast respon"</li><li>⭐⭐⭐⭐⭐ "Udah langganan disini, aman!"</li><li>⭐⭐⭐⭐⭐ "Harga murah, pelayanan mantap!"</li></ul></div></div>
-<div id="checkModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('checkModal')">&times;</span><h3>📋 Cek Transaksi</h3><p><strong>Format cek:</strong><br>Nama: <br>Tanggal Order: <br>Produk: <br>Bukti TF:</p><p>Kirim ke admin untuk pengecekan.<br>Estimasi respon sesuai antrian.</p><p><strong>Note:</strong> Pastikan data benar. Tanpa bukti TF tidak bisa diproses.</p></div></div>
-<div id="contactModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('contactModal')">&times;</span><h3>📞 Hubungi Kami</h3><p>📱 WhatsApp: <strong>0857-7123-8569</strong><br>🕒 Jam Operasional: <strong>07.00 – 22.00</strong><br>💬 Fast respon di jam kerja<br>🚫 No spam / no call tanpa izin</p></div></div>
-<div id="promoModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('promoModal')">&times;</span><h3>🎉 Promo Jumat Berkah</h3><p>Setiap Jumat: Diskon & cashback!</p><ul><li>💰 Diskon up to 10%</li><li>💵 Cashback 5k - 20k</li><li>🎁 Bonus produk tertentu</li></ul><p><strong>Kode Promo:</strong> JUMATBERKAH<br>Minimal belanja 25k.</p></div></div>
+<div class="container" id="app">
+  <div id="tabHome" class="tab-content active">
+    <div class="info-grid">
+      <div class="info-card"><div class="label">SALDO</div><div class="value">Rp0</div></div>
+      <div class="info-card"><div class="label">POINT</div><div class="value">0</div></div>
+      <div class="info-card"><div class="label">KERANJANG</div><div class="value" id="cartCountHome">0</div></div>
+      <div class="info-card"><div class="label">VOUCHER</div><div class="value">0</div></div>
+    </div>
+    <div class="marquee-banner"><marquee behavior="scroll" direction="left" scrollamount="5" loop="infinite">🚀 Selamat datang di BARR STORE | Layanan Digital Premium Terpercaya | Fast Respon & Aman | 📱 Order via WhatsApp 085771238569</marquee></div>
+    <div class="search-box"><input type="text" class="search-input" id="searchHome" placeholder="🔍 Cari produk..."></div>
+    <div class="kategori-scroll" id="kategoriHome"></div>
+    <div class="produk-grid" id="produkGridHome"></div>
+  </div>
 
-<footer class="footer-modern"><div class="container"><div class="footer-grid"><div class="footer-col"><h4>BARR STORE</h4><a onclick="openModal('aboutModal')">Tentang Kami</a><a onclick="openModal('checkModal')">Cek Transaksi</a><a onclick="openModal('contactModal')">Hubungi Kami</a><a onclick="openModal('reviewModal')">Ulasan</a></div><div class="footer-col"><h4>Legalitas</h4><a onclick="openModal('privacyModal')">Kebijakan Privasi</a><a onclick="openModal('termsModal')">Syarat & Ketentuan</a></div><div class="footer-col"><h4>Dukungan</h4><a href="https://wa.me/6285771238569" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a><a href="https://www.instagram.com/offcialbarrstore" target="_blank"><i class="fab fa-instagram"></i> Instagram</a><a href="mailto:barrstoreidcom@gmail.com"><i class="far fa-envelope"></i> Email</a></div><div class="footer-col"><h4>Lainnya</h4><a onclick="openModal('hoursModal')">Jam Operasional</a><a onclick="openModal('regulationModal')">Regulation</a><a onclick="openModal('ordernoteModal')">Order Note</a><a onclick="openModal('promoModal')">Promo Jumat Berkah</a></div></div><div class="footer-bottom"><div>© 2026 BARR STORE. All rights reserved.</div></div></div></footer>
+  <div id="tabProduk" class="tab-content">
+    <div class="search-box"><input type="text" class="search-input" id="searchProduk" placeholder="🔍 Cari produk..."></div>
+    <div class="filter-row"><select id="sortProduk" class="filter-select"><option value="default">Semua</option><option value="harga_rendah">Harga terendah</option><option value="harga_tinggi">Harga tertinggi</option></select></div>
+    <div class="produk-grid" id="produkGridProduk"></div>
+  </div>
+
+  <div id="tabCart" class="tab-content"><div id="cartList"></div><div class="cart-summary"><div style="display:flex; justify-content:space-between;"><span>Total Item:</span><span id="cartTotalItems">0</span></div><button id="checkoutButton" class="checkout-btn"><i class="fab fa-whatsapp"></i> Checkout via WhatsApp</button></div></div>
+
+  <div id="tabRiwayat" class="tab-content"><div id="riwayatList"></div></div>
+
+  <div id="tabAkun" class="tab-content"><div id="akunContainer"></div></div>
+</div>
+
+<div class="bottom-nav">
+  <button class="nav-item active" data-tab="home"><i class="fas fa-home"></i><span>Home</span></button>
+  <button class="nav-item" data-tab="produk"><i class="fas fa-box"></i><span>Produk</span></button>
+  <button class="nav-item" data-tab="cart"><i class="fas fa-shopping-cart"></i><span>Keranjang</span></button>
+  <button class="nav-item" data-tab="riwayat"><i class="fas fa-history"></i><span>Riwayat</span></button>
+  <button class="nav-item" data-tab="akun"><i class="fas fa-user"></i><span>Akun</span></button>
+</div>
+
+<div id="notifModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><h3>📢 BROADCAST</h3><span class="close-modal">&times;</span></div>
+    <div class="broadcast-section"><h4>📋 ORDER NOTE</h4><ul><li>No refund / no cancel</li><li>Wajib menggunakan format order</li><li>Fast respon sesuai jam operasional</li><li>Estimasi proses maksimal 1x24 jam</li><li>Produk digital tidak dapat dikembalikan</li><li>Harap cek kembali data sebelum order</li></ul></div>
+    <div class="broadcast-section"><h4>📜 REGULATION</h4><ul><li>Dilarang spam admin</li><li>Dilarang melakukan penipuan</li><li>Wajib sopan saat order</li><li>Pembelian berarti setuju dengan seluruh syarat & ketentuan</li></ul></div>
+    <div class="broadcast-section"><h4>🕒 JAM OPERASIONAL</h4><ul><li>Senin — Minggu • 07.00 — 22.00 WIB</li></ul></div>
+    <div class="broadcast-section"><h4>⭐ TESTIMONI</h4><ul><li>Trusted & fast respon</li><li>Proses cepat aman</li><li>Admin ramah</li><li>Harga murah kualitas mantap</li></ul></div>
+    <div class="broadcast-section"><h4>📞 CONTACT</h4><ul><li>WhatsApp Admin: 085771238569</li></ul></div>
+  </div>
+</div>
 
 <script>
-// Preloader minimal 1,5 detik
-window.addEventListener('load', function() {
-  setTimeout(function() {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-      preloader.classList.add('hide');
-      setTimeout(() => { preloader.style.display = 'none'; }, 500);
-    }
-  }, 1500);
-});
-
-function openModal(id){ document.getElementById(id).style.display='flex'; }
-function closeModal(id){ document.getElementById(id).style.display='none'; }
-window.onclick=function(e){ if(e.target.classList.contains('modal')) e.target.style.display='none'; }
-
-const categoriesData = [
-  { name: "APK PREMIUM", action: "order", items: ["APPLE MUSIC","BLACKBOX AI","BSTATION","CAMSCANNER","CANVA PRO","CAPCUT PRO","CATCHPLAY","CHATGPT PLUS","DAZZCAM","DISNEY+","DRAMABOX","GEMINI","GETCONTACT","GTC","HBO MAX","IBIS PAINT","IQIYI","LIGHTROOM","LOKLOK","MEITU","NETFLIX","PADLET","PERPLEXITY","PICSART","POLLAR","PRIME VIDEO","REMINI","SCRIBD","SHORTMAX","SPOTIFY","TELEGRAM PREMIUM","VIDIO","VIU","WATTPAD","WETV","YOUKU","YOUTUBE PREMIUM","ZOOM PRO"] },
-  { name: "BELI AKUN", action: "beli akun", items: ["MLBB","FC MOBILE","EFOOTBALL","PUBG","ROBLOX","DREAM LEAGUE SOCCER"] },
-  { name: "JUAL AKUN", action: "jual akun", items: ["MLBB","FC MOBILE","EFOOTBALL","PUBG","ROBLOX","DREAM LEAGUE SOCCER"] },
-  { name: "DESAIN GRAFIS", action: "order jasa desain", items: ["LOGO","BANNER","SLOGAN","POSTER"] },
-  { name: "TOP UP GAME", action: "top up", items: ["MLBB","ROBLOX","EFOOTBALL","FREE FIRE","PUBG","HOK"] },
-  { name: "PULSA / VOUCHER", action: "beli pulsa", items: ["TELKOMSEL","INDOSAT","SMARTFREN","XL","AXIS","TRI"] },
-  { name: "REKBER GAME", action: "order rekber game", items: ["HOK","MLBB","PUBG","FREE FIRE","EFOOTBALL","DREAM LEAGUE SOCCER"] },
-  { name: "NOKOS NOGAR", action: "order nokos nogar", items: ["WHATSAPP","TIKTOK","DANA","LAZADA","SHOPE","TOKO PEDIA","OVO","GOJEK","GRAB","LINE"] },
-  { name: "JASA BUG", action: "order jasa bug", items: ["VIRTEX","LACAK ALAMAT","SPAM CALL","SPAM WA","CAL","BANNED"] },
-  { name: "JOKI GAME", action: "order", items: ["JOKI MLBB","JOKGEN MLBB"], special: true },
-  // Kategori baru
-  { name: "EDIT VIDEO", action: "order edit video", items: ["Cinematic", "Clipper", "Konten",] },
-  { name: "SEWA BOT WHATSAPP", action: "sewa bot WhatsApp", items: ["Harian", "Bulanan", "Permanent"] },
-  { name: "PEMBUATAN WEBSITE", action: "order pembuatan website", items: ["Portofolio", "Toko Online", "Store"] }
-];
-
-const WA_NUMBER = "6285771238569";
-const grid = document.getElementById('catalogGrid');
-
-function getCustomMessage(cat, item) {
-  // Khusus JOKI GAME
-  if (cat.name === "JOKI GAME") return `Halo admin, saya mau order ${item}. Mau joki berapa bintang ka?`;
-  // Khusus BELI AKUN
-  if (cat.name === "BELI AKUN") return `Halo admin, saya mau beli akun ${item}.`;
-  // Khusus JUAL AKUN
-  if (cat.name === "JUAL AKUN") return `Halo admin, saya mau jual akun ${item}.`;
-  // Untuk semua kategori lainnya (termasuk EDIT VIDEO, SEWA BOT, PEMBUATAN WEBSITE)
-  return `Halo admin, saya mau ${cat.action} ${item}.`;
-}
-
-function createOrderLink(cat, item) {
-  const text = getCustomMessage(cat, item);
-  return `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(text)}`;
-}
-
-categoriesData.forEach(cat => {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `<div class="card-header"><h3>${cat.name}</h3></div>`;
-  const dropdown = document.createElement('div');
-  dropdown.className = 'dropdown';
-  const ul = document.createElement('ul');
-  cat.items.forEach(item => {
-    const li = document.createElement('li');
-    li.innerHTML = `<span>${item}</span>`;
-    const btn = document.createElement('a');
-    btn.href = createOrderLink(cat, item);
-    btn.target = '_blank';
-    btn.rel = 'noopener';
-    btn.className = 'order-btn';
-    btn.innerText = 'ORDER';
-    btn.addEventListener('click', e => e.stopPropagation());
-    li.appendChild(btn);
-    ul.appendChild(li);
-  });
-  dropdown.appendChild(ul);
-  card.appendChild(dropdown);
-  card.addEventListener('click', e => {
-    e.stopPropagation();
-    document.querySelectorAll('.card').forEach(c => { if (c !== card) c.classList.remove('active'); });
-    card.classList.toggle('active');
-  });
-  grid.appendChild(card);
-});
-
-document.addEventListener('click', e => {
-  if (!e.target.closest('.card')) {
-    document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
+  // ==================== DATA PRODUK LENGKAP DENGAN ICON ====================
+  function getIconForProduct(nama) {
+    const n = nama.toLowerCase();
+    if (n.includes('apple music')) return 'fab fa-apple';
+    if (n.includes('netflix')) return 'fab fa-netflix';
+    if (n.includes('spotify')) return 'fab fa-spotify';
+    if (n.includes('youtube')) return 'fab fa-youtube';
+    if (n.includes('capcut')) return 'fas fa-video';
+    if (n.includes('canva')) return 'fas fa-palette';
+    if (n.includes('chatgpt')) return 'fas fa-comment-dots';
+    if (n.includes('disney')) return 'fab fa-disney';
+    if (n.includes('prime video')) return 'fab fa-amazon';
+    if (n.includes('telegram')) return 'fab fa-telegram';
+    if (n.includes('whatsapp')) return 'fab fa-whatsapp';
+    if (n.includes('tiktok')) return 'fab fa-tiktok';
+    if (n.includes('instagram')) return 'fab fa-instagram';
+    if (n.includes('facebook')) return 'fab fa-facebook';
+    if (n.includes('twitter')) return 'fab fa-twitter';
+    if (n.includes('pubg')) return 'fas fa-gamepad';
+    if (n.includes('mobile legends') || n.includes('mlbb')) return 'fas fa-gamepad';
+    if (n.includes('free fire')) return 'fas fa-fire';
+    if (n.includes('roblox')) return 'fab fa-snapchat';
+    if (n.includes('efootball')) return 'fas fa-futbol';
+    return 'fas fa-box';
   }
-});
+
+  function getDeskripsiByKategori(kategori) {
+    const k = kategori.toLowerCase();
+    if (k.includes('apk premium')) return '✨ Akun Premium 1 Bulan | Garansi Resmi';
+    if (k.includes('jual akun')) return '🎮 Akun siap pakai | Level tinggi | Murah';
+    if (k.includes('beli akun')) return '💰 Kami beli akun game Anda | Harga bersaing';
+    if (k.includes('top up game')) return '⚡ Top up cepat | Proses 1-5 menit';
+    if (k.includes('desain grafis')) return '🎨 Desain kustom | Hasil profesional';
+    if (k.includes('pulsa / voucher')) return '📱 Pulsa & Voucher | Instant delivery';
+    if (k.includes('rekber game')) return '🤝 Rekber aman | Transaksi terpercaya';
+    if (k.includes('nokos nogar')) return '📞 Nokos/Nogar | Fast respon';
+    if (k.includes('jasa bug')) return '🐛 Jasa bug | 100% private';
+    if (k.includes('joki game')) return '🏆 Joki rank aman | Push rank';
+    if (k.includes('edit video')) return '🎬 Edit video cinematic | Hasil keren';
+    if (k.includes('sewa bot whatsapp')) return '🤖 Sewa bot WA | Auto reply | Payment';
+    return 'Hubungi admin untuk info lebih lanjut';
+  }
+
+  const produkList = [
+    { id: 1, nama: "Apple Music", kategori: "APK PREMIUM", stok: 30, harga: 0 },
+    { id: 2, nama: "Blackbox AI", kategori: "APK PREMIUM", stok: 25, harga: 0 },
+    { id: 3, nama: "Bstation", kategori: "APK PREMIUM", stok: 40, harga: 0 },
+    { id: 4, nama: "CamScanner", kategori: "APK PREMIUM", stok: 50, harga: 0 },
+    { id: 5, nama: "Canva Pro", kategori: "APK PREMIUM", stok: 80, harga: 0 },
+    { id: 6, nama: "CapCut Pro", kategori: "APK PREMIUM", stok: 75, harga: 0 },
+    { id: 7, nama: "Catchplay", kategori: "APK PREMIUM", stok: 20, harga: 0 },
+    { id: 8, nama: "ChatGPT Plus", kategori: "APK PREMIUM", stok: 30, harga: 0 },
+    { id: 9, nama: "DazzCam", kategori: "APK PREMIUM", stok: 45, harga: 0 },
+    { id: 10, nama: "Disney+", kategori: "APK PREMIUM", stok: 35, harga: 0 },
+    { id: 11, nama: "DramaBox", kategori: "APK PREMIUM", stok: 28, harga: 0 },
+    { id: 12, nama: "Gemini", kategori: "APK PREMIUM", stok: 22, harga: 0 },
+    { id: 13, nama: "Netflix", kategori: "APK PREMIUM", stok: 60, harga: 0 },
+    { id: 14, nama: "Prime Video", kategori: "APK PREMIUM", stok: 40, harga: 0 },
+    { id: 15, nama: "Remini", kategori: "APK PREMIUM", stok: 55, harga: 0 },
+    { id: 16, nama: "Scribd", kategori: "APK PREMIUM", stok: 38, harga: 0 },
+    { id: 17, nama: "ShortMax", kategori: "APK PREMIUM", stok: 25, harga: 0 },
+    { id: 18, nama: "Spotify Premium", kategori: "APK PREMIUM", stok: 120, harga: 0 },
+    { id: 19, nama: "Telegram Premium", kategori: "APK PREMIUM", stok: 70, harga: 0 },
+    { id: 20, nama: "Vidio Premium", kategori: "APK PREMIUM", stok: 30, harga: 0 },
+    { id: 21, nama: "Grok Ai", kategori: "APK PREMIUM", stok: 15, harga: 0 },
+    { id: 22, nama: "Claude Ai", kategori: "APK PREMIUM", stok: 18, harga: 0 },
+    { id: 23, nama: "FC Mobile", kategori: "JUAL AKUN", stok: 10, harga: 0 },
+    { id: 24, nama: "Efootball", kategori: "JUAL AKUN", stok: 8, harga: 0 },
+    { id: 25, nama: "PUBG", kategori: "JUAL AKUN", stok: 15, harga: 0 },
+    { id: 26, nama: "Roblox", kategori: "JUAL AKUN", stok: 20, harga: 0 },
+    { id: 27, nama: "Dream League Soccer", kategori: "JUAL AKUN", stok: 12, harga: 0 },
+    { id: 28, nama: "Free Fire", kategori: "JUAL AKUN", stok: 25, harga: 0 },
+    { id: 29, nama: "FC Mobile", kategori: "BELI AKUN", stok: 999, harga: 0 },
+    { id: 30, nama: "Efootball", kategori: "BELI AKUN", stok: 999, harga: 0 },
+    { id: 31, nama: "PUBG", kategori: "BELI AKUN", stok: 999, harga: 0 },
+    { id: 32, nama: "Roblox", kategori: "BELI AKUN", stok: 999, harga: 0 },
+    { id: 33, nama: "Dream League Soccer", kategori: "BELI AKUN", stok: 999, harga: 0 },
+    { id: 34, nama: "Free Fire", kategori: "BELI AKUN", stok: 999, harga: 0 },
+    { id: 35, nama: "Diamond MLBB", kategori: "TOP UP GAME", stok: 999, harga: 0 },
+    { id: 36, nama: "UC PUBG", kategori: "TOP UP GAME", stok: 999, harga: 0 },
+    { id: 37, nama: "Roblox Robux", kategori: "TOP UP GAME", stok: 999, harga: 0 },
+    { id: 38, nama: "Free Fire Diamond", kategori: "TOP UP GAME", stok: 999, harga: 0 },
+    { id: 39, nama: "Efootball Coin", kategori: "TOP UP GAME", stok: 999, harga: 0 },
+    { id: 40, nama: "Banner", kategori: "DESAIN GRAFIS", stok: 100, harga: 0 },
+    { id: 41, nama: "Poster", kategori: "DESAIN GRAFIS", stok: 100, harga: 0 },
+    { id: 42, nama: "Feed Instagram", kategori: "DESAIN GRAFIS", stok: 100, harga: 0 },
+    { id: 43, nama: "Thumbnail", kategori: "DESAIN GRAFIS", stok: 100, harga: 0 },
+    { id: 44, nama: "Logo", kategori: "DESAIN GRAFIS", stok: 100, harga: 0 },
+    { id: 45, nama: "Brosur", kategori: "DESAIN GRAFIS", stok: 100, harga: 0 },
+    { id: 46, nama: "Pulsa All Operator", kategori: "PULSA / VOUCHER", stok: 500, harga: 0 },
+    { id: 47, nama: "Voucher Game", kategori: "PULSA / VOUCHER", stok: 200, harga: 0 },
+    { id: 48, nama: "Voucher Digital", kategori: "PULSA / VOUCHER", stok: 200, harga: 0 },
+    { id: 49, nama: "Voucher Google Play", kategori: "PULSA / VOUCHER", stok: 150, harga: 0 },
+    { id: 50, nama: "Voucher PLN", kategori: "PULSA / VOUCHER", stok: 100, harga: 0 },
+    { id: 51, nama: "Rekber Akun", kategori: "REKBER GAME", stok: 999, harga: 0 },
+    { id: 52, nama: "Rekber Transaksi Game", kategori: "REKBER GAME", stok: 999, harga: 0 },
+    { id: 53, nama: "WhatsApp", kategori: "NOKOS NOGAR", stok: 500, harga: 0 },
+    { id: 54, nama: "TikTok", kategori: "NOKOS NOGAR", stok: 500, harga: 0 },
+    { id: 55, nama: "Dana", kategori: "NOKOS NOGAR", stok: 500, harga: 0 },
+    { id: 56, nama: "Lazada", kategori: "NOKOS NOGAR", stok: 500, harga: 0 },
+    { id: 57, nama: "Shopee", kategori: "NOKOS NOGAR", stok: 500, harga: 0 },
+    { id: 58, nama: "Tokopedia", kategori: "NOKOS NOGAR", stok: 500, harga: 0 },
+    { id: 59, nama: "OVO", kategori: "NOKOS NOGAR", stok: 500, harga: 0 },
+    { id: 60, nama: "Virtex", kategori: "JASA BUG", stok: 50, harga: 0 },
+    { id: 61, nama: "Lacak Alamat", kategori: "JASA BUG", stok: 50, harga: 0 },
+    { id: 62, nama: "Spam Call", kategori: "JASA BUG", stok: 50, harga: 0 },
+    { id: 63, nama: "Spam WA", kategori: "JASA BUG", stok: 50, harga: 0 },
+    { id: 64, nama: "Banned", kategori: "JASA BUG", stok: 50, harga: 0 },
+    { id: 65, nama: "Joki MLBB", kategori: "JOKI GAME", stok: 20, harga: 0 },
+    { id: 66, nama: "Joki Gendong MLBB", kategori: "JOKI GAME", stok: 20, harga: 0 },
+    { id: 67, nama: "Cinematic", kategori: "EDIT VIDEO", stok: 30, harga: 0 },
+    { id: 68, nama: "Clipper", kategori: "EDIT VIDEO", stok: 30, harga: 0 },
+    { id: 69, nama: "Konten Editing", kategori: "EDIT VIDEO", stok: 30, harga: 0 },
+    { id: 70, nama: "Bot Store", kategori: "SEWA BOT WHATSAPP", stok: 10, harga: 0 },
+    { id: 71, nama: "Bot Payment", kategori: "SEWA BOT WHATSAPP", stok: 10, harga: 0 },
+    { id: 72, nama: "Bot Panel", kategori: "SEWA BOT WHATSAPP", stok: 10, harga: 0 },
+    { id: 73, nama: "Bot Open Order", kategori: "SEWA BOT WHATSAPP", stok: 10, harga: 0 }
+  ];
+
+  const kategoriList = ['Semua', 'APK PREMIUM', 'JUAL AKUN', 'BELI AKUN', 'TOP UP GAME', 'DESAIN GRAFIS', 'PULSA / VOUCHER', 'REKBER GAME', 'NOKOS NOGAR', 'JASA BUG', 'JOKI GAME', 'EDIT VIDEO', 'SEWA BOT WHATSAPP'];
+
+  let keranjang = JSON.parse(localStorage.getItem('barr_cart')) || [];
+  let riwayat = JSON.parse(localStorage.getItem('barr_riwayat')) || [];
+  let user = JSON.parse(localStorage.getItem('barr_user')) || null;
+  let currentKategoriHome = 'Semua';
+
+  function showToast(msg) {
+    const toast = document.getElementById('toastMsg');
+    toast.innerText = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  }
+
+  function updateCartBadge() { let total = keranjang.reduce((s,i)=>s+i.qty,0); if(document.getElementById('cartCountHome')) document.getElementById('cartCountHome').innerText = total; if(document.getElementById('cartTotalItems')) document.getElementById('cartTotalItems').innerText = total; }
+  function simpanKeranjang() { localStorage.setItem('barr_cart', JSON.stringify(keranjang)); updateCartBadge(); }
+  function tambahKeKeranjang(id) { let produk = produkList.find(p=>p.id===id); let existing = keranjang.find(i=>i.id===id); if(existing) existing.qty++; else keranjang.push({id, nama: produk.nama, qty:1}); simpanKeranjang(); renderKeranjang(); showToast(`✓ ${produk.nama} ditambahkan`); }
+  function updateQty(id, delta) { let idx = keranjang.findIndex(i=>i.id===id); if(idx!==-1) { let newQty = keranjang[idx].qty + delta; if(newQty<=0) keranjang.splice(idx,1); else keranjang[idx].qty = newQty; simpanKeranjang(); renderKeranjang(); } }
+  function hapusItem(id) { keranjang = keranjang.filter(i=>i.id!==id); simpanKeranjang(); renderKeranjang(); }
+  function renderKeranjang() { let container = document.getElementById('cartList'); if(!container) return; if(keranjang.length===0) container.innerHTML='<div class="cart-empty">Keranjang masih kosong 😅</div>'; else { let html=''; keranjang.forEach(item=>{ html+=`<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">${item.nama}</div><div class="cart-item-price">Hubungi Admin untuk harga</div></div><div class="cart-qty"><button class="qty-btn" onclick="updateQty(${item.id}, -1)">-</button><span style="min-width:30px;text-align:center">${item.qty}</span><button class="qty-btn" onclick="updateQty(${item.id}, 1)">+</button><button class="qty-btn delete" onclick="hapusItem(${item.id})">Hapus</button></div></div>`; }); container.innerHTML=html; } updateCartBadge(); }
+  function checkoutWA() { if(keranjang.length===0) { showToast('Keranjang kosong'); return; } if(!user) { showToast('Silakan login terlebih dahulu'); switchTab('akun'); return; } let itemsList = keranjang.map(item => `- ${item.nama} (${item.qty}x)`).join('%0A'); let msg = `Halo admin BARR STORE%0A%0A*ORDER BARU*%0ANama: ${user.nama}%0AEmail: ${user.email}%0A%0ADaftar pesanan:%0A${itemsList}%0A%0AMohon info total dan cara bayar.%0A%0ATerima kasih.`; let tanggal = new Date().toLocaleString(); let note = `Pesanan via WA ke ${user.nama} - ${tanggal}`; riwayat.unshift({ id: Date.now(), items: [...keranjang], tanggal, note, user: user.nama }); localStorage.setItem('barr_riwayat', JSON.stringify(riwayat)); keranjang = []; simpanKeranjang(); renderKeranjang(); renderRiwayat(); window.open(`https://wa.me/6285771238569?text=${msg}`, '_blank'); showToast('Pesanan dikirim ke admin'); }
+  function renderRiwayat() { let container = document.getElementById('riwayatList'); if(!container) return; if(riwayat.length===0) container.innerHTML='<div class="cart-empty">Belum ada transaksi</div>'; else { let html=''; riwayat.forEach(tr=>{ html+=`<div class="riwayat-item"><div><strong>${tr.tanggal}</strong></div><div>${tr.items.map(i=>`${i.nama} (${i.qty}x)`).join(', ')}</div><div class="riwayat-note">📝 ${tr.note}</div></div>`; }); container.innerHTML=html; } }
+  function renderProduk(containerId, filterKategori=null, searchText='', sort='default') { let container = document.getElementById(containerId); if(!container) return; let filtered = [...produkList]; if(filterKategori && filterKategori!=='Semua') filtered = filtered.filter(p=>p.kategori===filterKategori); if(searchText) filtered = filtered.filter(p=>p.nama.toLowerCase().includes(searchText.toLowerCase())); if(sort==='harga_rendah') filtered.sort((a,b)=>a.harga - b.harga); if(sort==='harga_tinggi') filtered.sort((a,b)=>b.harga - a.harga); container.innerHTML = filtered.map(prod=>{ const icon = getIconForProduct(prod.nama); const desc = getDeskripsiByKategori(prod.kategori); return `<div class="produk-card"><div class="produk-img"><i class="${icon}"></i></div><div class="produk-info"><div class="produk-title">${prod.nama}</div><div class="produk-desc">${desc}</div><div class="produk-stok">Stok: ${prod.stok}</div><button class="btn-add" onclick="tambahKeKeranjang(${prod.id})">+ Keranjang</button></div></div>`; }).join(''); }
+  function renderKategoriHome(selected) { let container = document.getElementById('kategoriHome'); if(!container) return; let html=''; kategoriList.forEach(kat=>{ html+=`<span class="kategori-item ${selected===kat?'active':''}" data-kat="${kat}">${kat}</span>`; }); container.innerHTML=html; document.querySelectorAll('#kategoriHome .kategori-item').forEach(el=>{ el.addEventListener('click',()=>{ currentKategoriHome=el.dataset.kat; renderKategoriHome(currentKategoriHome); renderHome(); }); }); }
+  function renderHome() { let searchVal = document.getElementById('searchHome')?.value||''; renderProduk('produkGridHome', currentKategoriHome==='Semua'?null:currentKategoriHome, searchVal, 'default'); }
+  function renderProdukPage() { let searchVal = document.getElementById('searchProduk')?.value||''; let sortVal = document.getElementById('sortProduk')?.value||'default'; renderProduk('produkGridProduk', null, searchVal, sortVal); }
+  function renderAkun() { let container = document.getElementById('akunContainer'); if(!container) return; if(!user) { container.innerHTML = `<div class="akun-card"><div class="akun-avatar">BS</div><div class="akun-store-name">BARR STORE</div><div class="login-options" style="margin-top:1rem;"><input type="text" id="loginNama" placeholder="Nama / WhatsApp" value="085771238569" style="width:100%; padding:10px; border-radius:40px; border:1px solid var(--border); background:var(--bg-card); color:var(--text); margin-bottom:10px;"><input type="email" id="loginEmail" placeholder="Email" value="barrstore@gmail.com" style="width:100%; padding:10px; border-radius:40px; border:1px solid var(--border); background:var(--bg-card); color:var(--text); margin-bottom:10px;"><button class="btn-login" id="doLoginBtn" style="width:100%; padding:12px;">Login</button></div></div>`; document.getElementById('doLoginBtn')?.addEventListener('click',()=>{ let nama=document.getElementById('loginNama')?.value.trim(); let email=document.getElementById('loginEmail')?.value.trim(); if(!nama||!email){ showToast('Isi nama dan email'); return; } user={nama, email}; localStorage.setItem('barr_user',JSON.stringify(user)); renderAkun(); showToast(`Selamat datang, ${nama}!`); }); } else { let cartCount = keranjang.reduce((s,i)=>s+i.qty,0); container.innerHTML = `<div class="akun-card"><div class="akun-avatar">BS</div><div class="akun-store-name">${user.nama}</div><div class="akun-section"><div class="akun-menu-item"><span>📋 Informasi</span><span>➡️</span></div><div class="akun-menu-item"><span>💰 Saldo</span><span>Rp0</span></div><div class="akun-menu-item"><span>🛒 Keranjang ku</span><span>${cartCount}</span></div><div class="akun-menu-item"><span>🎫 Voucher ku</span><span>0</span></div><div class="akun-menu-item logout-item" id="logoutBtn"><span>🚪 LOGOUT</span><span></span></div></div></div>`; document.getElementById('logoutBtn')?.addEventListener('click',()=>{ user=null; localStorage.removeItem('barr_user'); renderAkun(); showToast('Logout berhasil'); }); } }
+  function toggleTheme() { const isBlue = document.body.classList.contains('theme-blue'); if (isBlue) { document.body.classList.remove('theme-blue'); document.body.classList.add('theme-black'); localStorage.setItem('barr_theme', 'black'); } else { document.body.classList.remove('theme-black'); document.body.classList.add('theme-blue'); localStorage.setItem('barr_theme', 'blue'); } }
+  function initTheme() { const saved = localStorage.getItem('barr_theme'); if (saved === 'black') { document.body.classList.remove('theme-blue'); document.body.classList.add('theme-black'); } else { document.body.classList.remove('theme-black'); document.body.classList.add('theme-blue'); } document.getElementById('themeToggleSidebar')?.addEventListener('click', () => { toggleTheme(); closeSidebar(); }); }
+  function switchTab(tabId) { let tabs = ['home','produk','cart','riwayat','akun']; tabs.forEach(t=>{ document.getElementById(`tab${t.charAt(0).toUpperCase()+t.slice(1)}`)?.classList.remove('active'); document.querySelector(`.nav-item[data-tab="${t}"]`)?.classList.remove('active'); }); document.getElementById(`tab${tabId.charAt(0).toUpperCase()+tabId.slice(1)}`).classList.add('active'); document.querySelector(`.nav-item[data-tab="${tabId}"]`).classList.add('active'); if(tabId==='home') { renderKategoriHome(currentKategoriHome); renderHome(); } if(tabId==='produk') renderProdukPage(); if(tabId==='cart') renderKeranjang(); if(tabId==='riwayat') renderRiwayat(); if(tabId==='akun') renderAkun(); closeSidebar(); }
+  let sidebar = document.getElementById('sidebar'), overlay = document.getElementById('overlay');
+  function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('active'); }
+  function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('active'); }
+  document.getElementById('menuIcon')?.addEventListener('click', openSidebar);
+  document.getElementById('closeSidebar')?.addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+  document.querySelectorAll('.sidebar-item[data-nav]').forEach(item=>{ item.addEventListener('click',()=>{ switchTab(item.getAttribute('data-nav')); }); });
+  document.querySelectorAll('.nav-item').forEach(btn=>{ btn.addEventListener('click',()=>{ switchTab(btn.getAttribute('data-tab')); }); });
+  document.getElementById('notifIcon')?.addEventListener('click',()=>{ document.getElementById('notifModal').style.display='flex'; });
+  document.getElementById('profileIcon')?.addEventListener('click',()=>{ switchTab('akun'); });
+  document.querySelector('.close-modal')?.addEventListener('click',()=>{ document.getElementById('notifModal').style.display='none'; });
+  window.onclick = function(e) { if(e.target == document.getElementById('notifModal')) document.getElementById('notifModal').style.display='none'; };
+  document.getElementById('searchHome')?.addEventListener('input', renderHome);
+  document.getElementById('searchProduk')?.addEventListener('input', renderProdukPage);
+  document.getElementById('sortProduk')?.addEventListener('change', renderProdukPage);
+  document.getElementById('checkoutButton')?.addEventListener('click', checkoutWA);
+  window.tambahKeKeranjang = tambahKeKeranjang; window.updateQty = updateQty; window.hapusItem = hapusItem;
+
+  initTheme();
+  renderKategoriHome('Semua');
+  renderHome();
+  renderProdukPage();
+  renderKeranjang();
+  renderRiwayat();
+  renderAkun();
+  updateCartBadge();
 </script>
 </body>
 </html>
